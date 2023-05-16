@@ -1,51 +1,27 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { useState } from 'react';
-import { auth } from '../Firestore';
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
+import { useState, useContext } from "react";
 import UserContext from '../UserContext';
-import { useContext } from 'react';
 
 const Login = () => {
+
+    const [showRegistration, setShowRegistration] = useState(false)
     const {currentUser, setCurrentUser} = useContext(UserContext)
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("") 
 
-    console.log(currentUser)
-
-    const loginUser = async (e) => {
-        e.preventDefault();
-        const user = await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
-        setCurrentUser(user.user.uid)
+    const handleClick = () => {
+        setShowRegistration(!showRegistration)
     }
 
-    return (<>
-                <form
-                    onSubmit={loginUser}>
-                    <label>Email: </label>
-                    <input 
-                        type="text"
-                        id="email"
-                        name="email"
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder='Email'
-                        value={email}
-                    />
-                    <label>Password: </label>
-                    <input 
-                        type="text"
-                        id="password"
-                        name="password"
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder='Password'
-                        value={password}
-                    />
-                    <button id="sign-in" type="subimt">
-                        Sign in
-                    </button>
-                </form>
-</>);
+    return(
+    <div className="w-screen h-screen flex justify-center items-center relative flex-col">
+        <LoginForm />
+        <div className="flex mt-5">
+            <p className="mr-3">Don't have an account?  </p>
+            <button className="text-blue-600 hover:text-red-600" onClick={handleClick}>Register</button>
+        </div>
+        <RegisterForm show={showRegistration} setShow={setShowRegistration}/>
+    </div>
+    )
 }
+
 export default Login

@@ -4,7 +4,7 @@ import { auth } from '../Firestore';
 const SignOut = () => {
 
     return(
-        <button onClick={() => signOut(auth)}>Sign Out</button>
+        <button onClick={signOut(auth)}>Sign Out</button>
     )
 }
 

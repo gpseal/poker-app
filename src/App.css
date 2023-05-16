@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  color: rgb(129, 129, 129);
+  font-weight: 500;
+  font-size: xx-large;
+}
+
 .App {
   text-align: center;
 }
