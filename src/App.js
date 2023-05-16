@@ -1,26 +1,16 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from './components/authentication/Login';
+import UserContext from './components/UserContext';
+import { useContext } from 'react';
+import Logout from './components/authentication/Logout';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div>its my app</div>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const {currentUser, setCurrentUser} = useContext(UserContext)
+
+  return (<>
+      {!currentUser ? <Login /> : <div>Welcome <Logout /></div>}
+    </>);
 }
 
 export default App;
