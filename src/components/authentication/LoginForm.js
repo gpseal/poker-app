@@ -7,10 +7,13 @@ const LoginForm = (props) => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { setIsLoading } = useContext(UserContext);
 
   const handleLogin = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
-    loginUser(email, password, setCurrentUser)
+    await loginUser(email, password, setCurrentUser)
+    setIsLoading(false)
     };
 
   return (

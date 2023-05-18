@@ -7,15 +7,14 @@ const Login = () => {
 
     const [showRegistration, setShowRegistration] = useState(false)
     const {currentUser, setCurrentUser} = useContext(UserContext)
+    const [isLoading, setIsLoading] = useState(false)
     
     const handleClick = () => {
         setShowRegistration(!showRegistration)
     }
 
-    // console.log(currentUser)
-
-
     return (
+      <>{isLoading ? <div>Loading</div> :
       <div className="w-screen h-screen flex justify-center items-center relative flex-col">
         <LoginForm />
         <div className="flex mt-5">
@@ -32,6 +31,7 @@ const Login = () => {
           setShow={setShowRegistration}
         />
       </div>
+      }</>
     );
 }
 

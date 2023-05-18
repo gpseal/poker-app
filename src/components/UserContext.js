@@ -7,22 +7,20 @@ const UserContext = createContext()
 export const UserProvider = ({children}) => {
 
     const [currentUser, setCurrentUser] = useState();
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setIsLoading(true)
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 setCurrentUser(user.uid); // store the UID of the logged-in user in state
             } else {
                 setCurrentUser(null); // user logged out
             }
-            setIsLoading(false)
         });
     },[])
 
     return (
-        <UserContext.Provider value={{currentUser, setCurrentUser, isLoading}}>{children}</UserContext.Provider>
+        <UserContext.Provider value={{currentUser, setCurrentUser, isLoading, setIsLoading}}>{children}</UserContext.Provider>
     )
 }
 

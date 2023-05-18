@@ -17,14 +17,17 @@ const RegisterForm = (props) => {
   const [email, setEmail] = useState();
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
+  const { setIsLoading } = useContext(UserContext);
 
   const closeRegistration = () => {
     setShow(!show);
   };
 
-  const handleRegistration = (e) => {
+  const handleRegistration = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
-    registerUser(email, password, userName, setCurrentUser);
+    await registerUser(email, password, userName, setCurrentUser);
+    setIsLoading(false)
   };
 
   return (
