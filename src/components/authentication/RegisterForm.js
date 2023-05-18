@@ -33,8 +33,8 @@ const RegisterForm = (props) => {
   return (
     <>
       {show ? (
-        <div className="bg-white w-screen h-screen z-10 absolute left-0 top-0 flex-col flex items-center justify-center ">
-          <div className="p-20 border shadow-lg">
+        <div className="bg-back w-screen h-screen z-10 absolute left-0 top-0 flex-col flex items-center justify-center ">
+          <div className="p-20 border shadow-lg bg-fore">
             <form
               className="flex items-center flex-col"
               onSubmit={handleRegistration}
@@ -72,7 +72,7 @@ const RegisterForm = (props) => {
               <button
                 id="sign-in"
                 type="subimt"
-                className="p-2 w-20 mt-10 bg-black text-white hover:bg-slate-500"
+                className="p-2 w-20 mt-10 bg-button text-white hover:bg-button-h"
               >
                 Register
               </button>

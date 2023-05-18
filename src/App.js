@@ -9,10 +9,10 @@ function App() {
   const { currentUser } = useContext(UserContext)
   const { isLoading } = useContext(UserContext);
 
-  return (<>
+  return (<div className='bg-back min-h-screen'>
       {isLoading && <Loading />}
       <div>{!currentUser ? <Login /> : <HomePage />}</div>
-    </>);
+    </div>);
 }
 
 export default App;

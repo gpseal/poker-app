@@ -5,6 +5,8 @@ import { useState, useContext, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../fireBaseFunctions/registrationFunctions";
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
+import CreateGame from "../components/CreateGame";
+import JoinGame from "../components/JoinGame";
 
 const HomePage = () => {
 
@@ -19,8 +21,12 @@ const HomePage = () => {
     },[])
 
     return (
+      <div className="flex justify-center w-screen bg-red-500">
       <div>
         Welcome {userProfile?.data().name} <LogOut />
+        <CreateGame />
+        <JoinGame />
+      </div>
       </div>
     );
 }
