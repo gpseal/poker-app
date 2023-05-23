@@ -4,8 +4,9 @@ import {
 } from "firebase/auth";
 import { firestore, auth } from "../components/Firestore";
 import { doc, setDoc } from "firebase/firestore";
+import { db } from "../components/Firestore";
 
-export const db = firestore;
+
 
 // registers user and sets username in database
 export const registerUser = async (

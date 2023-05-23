@@ -1,6 +1,6 @@
 const JoinGame = () => {
     return(
-        <div>Join Game</div>
+        <div className="bg-blue-300">Join Game</div>
     )
 }
 
