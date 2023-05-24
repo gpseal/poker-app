@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../Firestore";
 import UserContext from "../UserContext";
-// import { registerUser, test } from "./firebaseRegistrationFunctions";
+import { ButtonForm } from "../buttons/buttons";
 import {
   db,
   registerUser,
@@ -69,13 +69,7 @@ const RegisterForm = (props) => {
                 placeholder="Password"
                 value={password}
               />
-              <button
-                id="sign-in"
-                type="subimt"
-                className="p-2 w-20 mt-10 bg-button text-white hover:bg-button-h"
-              >
-                Register
-              </button>
+              <ButtonForm id={"register"} text={"Register"} />
             </form>
           </div>
           <button className="mt-3" onClick={closeRegistration}>

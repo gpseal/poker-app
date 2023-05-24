@@ -21,9 +21,10 @@ const HomePage = () => {
     },[])
 
     return (
-      <div className="flex justify-center w-screen bg-red-500">
+      <div className="flex justify-center w-screen">
       <div className="flex flex-col content-center">
-        Welcome {userProfile?.data().name} <LogOut />
+        Welcome {userProfile?.data().name}
+        <LogOut />
         <CreateGame />
         <JoinGame />
       </div>

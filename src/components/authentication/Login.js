@@ -2,6 +2,7 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useState, useContext, useEffect } from "react";
 import UserContext from '../UserContext';
+import { ButtonText } from "../buttons/buttons";
 
 const Login = () => {
 
@@ -10,6 +11,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false)
     
     const handleClick = () => {
+      console.log("object")
         setShowRegistration(!showRegistration)
     }
 
@@ -19,12 +21,7 @@ const Login = () => {
         <LoginForm />
         <div className="flex mt-5">
           <p className="mr-3">Don't have an account? </p>
-          <button
-            className="text-blue-600 hover:text-red-600"
-            onClick={handleClick}
-          >
-            Register
-          </button>
+          <ButtonText text="Register" onClick={handleClick}/>
         </div>
         <RegisterForm
           show={showRegistration}
