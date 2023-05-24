@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc, addDoc } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, addDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../components/Firestore";
 
 export const getDocument = async (docRef) => {
@@ -7,8 +7,9 @@ export const getDocument = async (docRef) => {
 };
 
 // Add a new document in collection "cities"
-export const createGame = async (owner, deck) => {
+export const createGame = async (owner, deck, name) => {
   await addDoc(collection(db, "games"), {
+    name: name,
     owner: owner,
     players: 0,
     turn: 0,

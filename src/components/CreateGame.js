@@ -1,21 +1,14 @@
-import { createGame } from "../fireBaseFunctions/dataFunctions"
-import deck from "../cards/deck"
-import UserContext from "../components/UserContext";
-import { useState, useContext, useEffect } from "react";
-import { shuffle } from "../cards/cardFunctions"
-import Card from 'react-playing-card'
+import { useState } from "react";
+import CreateGameModal from "./CreateGameModal";
 
 const CreateGame = () => {
-    const { currentUser } = useContext(UserContext);
 
-    const prepAndStart = () => {
-        shuffle(deck)
-        createGame(currentUser, deck)
-    }
+    const [modalVisible, setModalVisible] = useState(false)
 
     return(<div className="py-10">
-        <div className="bg-blue-500">Create a Game</div>
-        <button onClick={prepAndStart}>Create New Game</button>
+        <CreateGameModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        <h1>Create a Game</h1>
+        <button onClick={() => setModalVisible(true)}>Create New Game</button>
         </div>
         )
 }
