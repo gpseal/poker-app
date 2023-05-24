@@ -7,10 +7,11 @@ import { db } from "../components/Firestore";
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
 import CreateGame from "../components/CreateGame";
 import JoinGame from "../components/JoinGame";
+import Loading from "../components/Loading";
 
 const HomePage = () => {
 
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser, isLoading } = useContext(UserContext);
     const [userProfile, setUserProfile] = useState()
     const docRef = doc(db, "users", currentUser)
     
@@ -21,14 +22,22 @@ const HomePage = () => {
     },[])
 
     return (
-      <div className="flex justify-center w-screen">
-      <div className="flex flex-col content-center">
-        Welcome {userProfile?.data().name}
-        <LogOut />
-        <CreateGame />
-        <JoinGame />
-      </div>
-      </div>
+      <>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className="flex justify-center w-screen">
+            <div className="flex flex-col content-center items-center">
+              <div className="flex justify-center">
+                Welcome {userProfile?.data().name}
+              </div>
+              <LogOut />
+              <CreateGame />
+              <JoinGame />
+            </div>
+          </div>
+        )}
+      </>
     );
 }
 

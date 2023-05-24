@@ -1,10 +1,11 @@
 import { signOut } from "firebase/auth";
 import { auth } from '../Firestore';
+import { ButtonStandard } from "../buttons/buttons";
 
 const LogOut = () => {
 
     return(
-        <button onClick={() => signOut(auth)}>Sign Out</button>
+        <ButtonStandard onClick={() => signOut(auth)} text={"Sign Out"}/>
     )
 }
 
