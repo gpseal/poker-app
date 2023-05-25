@@ -2,7 +2,8 @@ import { useState, useContext } from "react"
 import { shuffle } from "../cards/cardFunctions"
 import deck from "../cards/deck"
 import UserContext from "../components/UserContext";
-import { createGame } from "../fireBaseFunctions/dataFunctions";
+import { createGame, joinGame } from "../fireBaseFunctions/gameFunctions";
+
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ const CreateGameModal = ( props ) => {
         e.preventDefault();
         shuffle(deck)
         await createGame(currentUser, deck, gameName, gameID);
+        await joinGame(currentUser, gameID);
         navigate(`/game/${gameID}`);
     }
 
