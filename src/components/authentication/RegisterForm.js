@@ -26,6 +26,7 @@ const RegisterForm = (props) => {
   const handleRegistration = async (e) => {
     setIsLoading(true)
     e.preventDefault();
+    console.log("object")
     await registerUser(email, password, userName, setCurrentUser);
     setIsLoading(false)
   };

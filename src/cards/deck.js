@@ -1,19 +1,8 @@
-const URLBase= "https://deckofcardsapi.com/static/img/"
-
-class Card {
-    constructor(suit, card, value) {
-        this.suit = suit;
-        this.card = card;
-        this.value = value;
-    }
-    getImage() {
-        return `${URLBase}${this.card}${this.suit}.png`
-    }
-}
+const URLBase= "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/"
 
 const deck = [];
-const suits = ["S", "H", "C", "D"]
-const cards = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+const suits = ["spades", "hearts", "clubs", "diamonds"]
+const cards = ["2","3","4","5","6","7","8","9","10","jack","queen","king","ace"]
 const values = [2,3,4,5,6,7,8,9,10,11,12,13,14]
 
 suits.forEach(suit => cards.forEach((card, i) =>{
@@ -22,7 +11,7 @@ suits.forEach(suit => cards.forEach((card, i) =>{
                 suit: suit,
                 card: card,
                 value: values[i],
-                image: `${URLBase}${card}${suit}.png`,
+                image: `${URLBase}${suit}_${card}.svg`,
             }
         )
 }));

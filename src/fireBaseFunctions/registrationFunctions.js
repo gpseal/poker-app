@@ -16,6 +16,8 @@ export const registerUser = async (
   setCurrentUser
 ) => {
   const user = await createUserWithEmailAndPassword(auth, email, password);
+  console.log("here")
+  console.log(user.user.uid)
   setCurrentUser(user.user.uid);
   await setDoc(doc(db, "users", user.user.uid), {
     name: userName,

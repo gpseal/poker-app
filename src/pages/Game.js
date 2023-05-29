@@ -19,8 +19,12 @@ const Game = () => {
     }, [])
 
     return(<>
-        <div>GameID {params.id}</div>
-        <PlayerHand gameID={gameID} currentUser={currentUser}/>
+        <div className="bg-red-500 flex h-screen flex-col flex items-center justify-center">
+            <div>GameID {params.id}</div>
+            <div>
+                <PlayerHand gameID={gameID} currentUser={currentUser}/>
+            </div>
+        </div>
         </>)
 }
 

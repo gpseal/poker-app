@@ -15,7 +15,6 @@ const CreateGameModal = ( props ) => {
     const generateRandomString = () => {
       return Math.floor((Math.random()*10) * Date.now()).toString(36);
     };
-    // console.log(generateRandomString());
 
     const gameID = generateRandomString();
 
