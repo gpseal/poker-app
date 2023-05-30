@@ -2,6 +2,7 @@
 import { arrayUnion, doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../components/Firestore";
 import { getDeck } from "../cards/cardFunctions";
+import { useState } from "react";
 
 export const createGame = async (owner, deck, name, gameID) => {
     await setDoc(doc(db, "games", gameID), {
@@ -40,6 +41,85 @@ export const joinGame = async (user, gameID) => {
 export const endTurn = async (gameID) => {
   await updateDoc(doc(db,"games", gameID), {
     turn: increment(1),
-})
+  })
+  return
+}
 
+export const CalculateScore = (cardHand) => {
+  const sortedHand = cardHand?.sort((a, b) => {
+    return a.value - b.value
+  })
+
+  const formatInteger = (value) => {
+    if (value.length === 2) {
+      return parseInt(value.slice(0, 1) + 0 + value.slice(1));
+    }
+    return parseInt(value)
+  }
+
+  const cardCount = sortedHand?.reduce((tally, card) => {
+    tally[card.value] = (tally[card.value] || 0) + 1;
+    return tally;
+  }, {});
+
+  const getObjectKey = (obj, value) => {
+    return Object.keys(obj).find(key => obj[key] === value)
+  }
+  
+  if (cardCount) {
+
+    //Royal Flush
+        if (
+          sortedHand.filter((card) => card.suit === sortedHand[0].suit)
+            .length === 5 &&
+          sortedHand[0]?.value + 4 === sortedHand[4]?.value && 
+          sortedHand[0]?.value === 10
+        ) {
+          return formatInteger("" + 7 + sortedHand[0].value);
+        }
+
+    //Straight Flush
+        if (
+          (sortedHand.filter((card) => card.suit === sortedHand[0].suit)
+            .length === 5) &&
+          (sortedHand[0]?.value + 4 === sortedHand[4]?.value)
+        ) {
+          return formatInteger("" + 7 + sortedHand[0].value);
+        }
+
+    //Four of a kind
+    if (Object?.values(cardCount).includes(4)) {
+      return formatInteger("" + 6 + getObjectKey(cardCount, 4));
+    }
+
+    //Full house
+
+    //Flush
+    if (sortedHand.filter(card => card.suit === sortedHand[0].suit).length === 5) {
+      return formatInteger("" + 4 + sortedHand[0].value);
+    }
+
+    //Straight
+    if ((sortedHand[0]?.value + 4) === (sortedHand[4]?.value)){
+      return formatInteger("" + 3 + sortedHand[0].value);
+    }
+
+    // Three of a kind
+    if (Object?.values(cardCount).includes(3)) {
+      return formatInteger("" + 2 + getObjectKey(cardCount, 3));
+    }
+    
+    // Two Pair
+    
+    // Pair
+    if (Object?.values(cardCount).includes(2)) {
+      return formatInteger("" + 1 + getObjectKey(cardCount, 2));
+    }
+    
+    return formatInteger(sortedHand[4].value);
+    // High Card
+  }
+  
+
+  return 
 }

@@ -5,14 +5,16 @@ import Card from "../cards/Card";
 import { ButtonStandard } from "./buttons/buttons";
 import { swapCards } from "../cards/cardFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
+import { CalculateScore } from "../fireBaseFunctions/gameFunctions";
 
 const PlayerHand = (props) => {
     const [playerHand, setPlayerHand] = useState();
     const [playerNum, setPlayerNum] = useState();
     const [activeCards, setActiveCards] = useState([]);
     const [gameStatus, setGameStatus] = useState();
-    const [isMyTurn, setIsMyTurn] = useState(false);
+    const [isMyTurn, setIsMyTurn] = useState(true);
     const [gameOver, setGameOver] = useState(false);
+    const [playerScore, setplayerScore] = useState(0);
 
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "games", props.gameID, "players", props.currentUser),(doc) => {
@@ -34,10 +36,13 @@ const PlayerHand = (props) => {
 
     useEffect(() => {
         // seting player turn
-        gameStatus?.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
+        // gameStatus?.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
         // ending game after all players have had a turn
         gameStatus?.turn > gameStatus?.players ? setGameOver(true) : setGameOver(false)
+        const score = CalculateScore(playerHand);
+        console.log(score)
     }, [gameStatus])
+
 
     return(<>
         {gameOver && <div>Game Complete</div>}
