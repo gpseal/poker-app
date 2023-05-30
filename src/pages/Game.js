@@ -24,7 +24,7 @@ const Game = () => {
         <div className="bg-red-500 flex h-screen flex-col flex items-center justify-center">
             <div>GameID {params.id}</div>
             <div>
-                <PlayerHand gameID={gameID} currentUser={currentUser}/>
+                <PlayerHand gameID={gameID} currentUser={currentUser} turn={gameData?.turn} players={gameData?.players}/>
             </div>
         </div>
         </>)

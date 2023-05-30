@@ -11,7 +11,6 @@ const PlayerHand = (props) => {
     const [playerHand, setPlayerHand] = useState();
     const [playerNum, setPlayerNum] = useState();
     const [activeCards, setActiveCards] = useState([]);
-    const [gameStatus, setGameStatus] = useState();
     const [isMyTurn, setIsMyTurn] = useState(true);
     const [gameOver, setGameOver] = useState(false);
     const [playerScore, setplayerScore] = useState(0);
@@ -25,23 +24,13 @@ const PlayerHand = (props) => {
     }, [])
 
     useEffect(() => {
-        const unsub = onSnapshot(doc(db, "games", props.gameID),(doc) => {
-            setGameStatus({
-                turn: doc.data().turn,
-                players: doc.data().players,
-            })
-        })
-        return unsub
-    }, [])
-
-    useEffect(() => {
         // seting player turn
-        // gameStatus?.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
+        props.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
         // ending game after all players have had a turn
-        gameStatus?.turn > gameStatus?.players ? setGameOver(true) : setGameOver(false)
+        props.turn > props.players ? setGameOver(true) : setGameOver(false)
         const score = CalculateScore(playerHand);
-        console.log(score)
-    }, [gameStatus])
+        console.log(`score: ${score}`)
+    }, [props.turn])
 
 
     return(<>

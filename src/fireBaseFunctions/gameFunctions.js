@@ -46,7 +46,8 @@ export const endTurn = async (gameID) => {
 }
 
 export const CalculateScore = (cardHand) => {
-  const sortedHand = cardHand?.sort((a, b) => {
+  const sortableHand = cardHand
+  const sortedHand = sortableHand?.sort((a, b) => {
     return a.value - b.value
   })
 
@@ -75,7 +76,7 @@ export const CalculateScore = (cardHand) => {
           sortedHand[0]?.value + 4 === sortedHand[4]?.value && 
           sortedHand[0]?.value === 10
         ) {
-          return formatInteger("" + 7 + sortedHand[0].value);
+          return 700 + sortedHand[0].value;
         }
 
     //Straight Flush
@@ -84,39 +85,39 @@ export const CalculateScore = (cardHand) => {
             .length === 5) &&
           (sortedHand[0]?.value + 4 === sortedHand[4]?.value)
         ) {
-          return formatInteger("" + 7 + sortedHand[0].value);
+          return 600 + sortedHand[0].value;
         }
 
     //Four of a kind
     if (Object?.values(cardCount).includes(4)) {
-      return formatInteger("" + 6 + getObjectKey(cardCount, 4));
+      return 500 + getObjectKey(cardCount, 4);
     }
 
     //Full house
 
     //Flush
     if (sortedHand.filter(card => card.suit === sortedHand[0].suit).length === 5) {
-      return formatInteger("" + 4 + sortedHand[0].value);
+      return 400 + sortedHand[0].value;
     }
 
     //Straight
     if ((sortedHand[0]?.value + 4) === (sortedHand[4]?.value)){
-      return formatInteger("" + 3 + sortedHand[0].value);
+      return 300 + sortedHand[0].value;
     }
 
     // Three of a kind
     if (Object?.values(cardCount).includes(3)) {
-      return formatInteger("" + 2 + getObjectKey(cardCount, 3));
+      return 200 + getObjectKey(cardCount, 3);
     }
     
     // Two Pair
     
     // Pair
     if (Object?.values(cardCount).includes(2)) {
-      return formatInteger("" + 1 + getObjectKey(cardCount, 2));
+      return 100 + getObjectKey(cardCount, 2);
     }
     
-    return formatInteger(sortedHand[4].value);
+    return parseInt(sortedHand[4].value);
     // High Card
   }
   
