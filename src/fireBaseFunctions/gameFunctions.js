@@ -8,7 +8,8 @@ export const createGame = async (owner, deck, name, gameID) => {
       name: name,
       owner: owner,
       players: 0,
-      turn: 0,
+      turn: 1,
+      status: "waiting",
       deck: deck || null,
       current_players: [],
     });
@@ -25,10 +26,20 @@ export const joinGame = async (user, gameID) => {
         deck: newDeck,
         current_players: arrayUnion(user)
     })
-    
+
+    const game = await getDoc(doc(db, "games", gameID))
+
     await setDoc(doc(db, "games", gameID, "players", user), {
         cards: hand,
+        playerNum: game.data().players,
     })
 
-    return
+  return
+}
+
+export const endTurn = async (gameID) => {
+  await updateDoc(doc(db,"games", gameID), {
+    turn: increment(1),
+})
+
 }

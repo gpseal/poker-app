@@ -46,7 +46,6 @@ const JoinGame = () => {
                 {gameData.map((data)=>{
                     return (
                       <div key={data.id}>
-                        {/* <Link to={`/game/${data.id}`}>{data.name}</Link> */}
                         <button onClick={() => handleJoinGame(data.id)}>{data.name}</button>
                       </div>
                     );

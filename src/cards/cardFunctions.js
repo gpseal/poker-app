@@ -1,6 +1,7 @@
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
 import { db } from "../components/Firestore";
 import { getDoc, doc, setDoc } from "firebase/firestore";
+import { endTurn } from "../fireBaseFunctions/gameFunctions";
 
 export const shuffle = deck => {
     for (let i = deck.length - 1; i > 0; i--) {
@@ -9,6 +10,7 @@ export const shuffle = deck => {
       deck[i] = deck[j];
       deck[j] = temp;
     }
+    return
   }
 
 export const swapCards = async (gameID, cardsToSwap, hand, user) => {
@@ -23,6 +25,8 @@ export const swapCards = async (gameID, cardsToSwap, hand, user) => {
   await setDoc(doc(db, "games", gameID, "players", user), {
     cards: hand,
   });
+  endTurn(gameID)
+  return
 }
 
 export const getDeck = async (gameID) => {
