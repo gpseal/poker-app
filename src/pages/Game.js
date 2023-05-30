@@ -16,7 +16,9 @@ const Game = () => {
             setGameData(doc.data())
         })
         return unsub
-    }, [])
+        }, [])
+
+    console.log(gameID)
 
     return(<>
         <div className="bg-red-500 flex h-screen flex-col flex items-center justify-center">
