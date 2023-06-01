@@ -25,9 +25,9 @@ const PlayerHand = (props) => {
 
     useEffect(() => {
         // seting player turn
-        props.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
+        // props.turn == playerNum ? setIsMyTurn(true) : setIsMyTurn(false)
         // ending game after all players have had a turn
-        props.turn > props.players ? setGameOver(true) : setGameOver(false)
+        // props.turn > props.players ? setGameOver(true) : setGameOver(false)
         const score = CalculateScore(playerHand);
         console.log(`score: ${score}`)
     }, [props.turn])

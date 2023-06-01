@@ -46,17 +46,12 @@ export const endTurn = async (gameID) => {
 }
 
 export const CalculateScore = (cardHand) => {
-  const sortableHand = cardHand
+  
+  // const sortableHand = cardHand
+  const sortableHand = cardHand?.map(c => c)
   const sortedHand = sortableHand?.sort((a, b) => {
     return a.value - b.value
   })
-
-  const formatInteger = (value) => {
-    if (value.length === 2) {
-      return parseInt(value.slice(0, 1) + 0 + value.slice(1));
-    }
-    return parseInt(value)
-  }
 
   const cardCount = sortedHand?.reduce((tally, card) => {
     tally[card.value] = (tally[card.value] || 0) + 1;
@@ -66,6 +61,7 @@ export const CalculateScore = (cardHand) => {
   const getObjectKey = (obj, value) => {
     return Object.keys(obj).find(key => obj[key] === value)
   }
+  console.log(cardCount)
   
   if (cardCount) {
 
@@ -76,7 +72,7 @@ export const CalculateScore = (cardHand) => {
           sortedHand[0]?.value + 4 === sortedHand[4]?.value && 
           sortedHand[0]?.value === 10
         ) {
-          return 700 + sortedHand[0].value;
+          return 700 + parseInt(sortedHand[0].value);
         }
 
     //Straight Flush
@@ -85,36 +81,37 @@ export const CalculateScore = (cardHand) => {
             .length === 5) &&
           (sortedHand[0]?.value + 4 === sortedHand[4]?.value)
         ) {
-          return 600 + sortedHand[0].value;
+          return 600 + parseInt(sortedHand[0].value);
         }
 
     //Four of a kind
     if (Object?.values(cardCount).includes(4)) {
-      return 500 + getObjectKey(cardCount, 4);
+      return 500 + parseInt(getObjectKey(cardCount, 4));
     }
 
     //Full house
 
     //Flush
     if (sortedHand.filter(card => card.suit === sortedHand[0].suit).length === 5) {
-      return 400 + sortedHand[0].value;
+      return 400 + parseInt(sortedHand[0].value);
     }
 
     //Straight
     if ((sortedHand[0]?.value + 4) === (sortedHand[4]?.value)){
-      return 300 + sortedHand[0].value;
+      return 300 + parseInt(sortedHand[0].value);
     }
 
     // Three of a kind
     if (Object?.values(cardCount).includes(3)) {
-      return 200 + getObjectKey(cardCount, 3);
+      
+      return 200 + parseInt(getObjectKey(cardCount, 3));
     }
     
     // Two Pair
     
     // Pair
     if (Object?.values(cardCount).includes(2)) {
-      return 100 + getObjectKey(cardCount, 2);
+      return 100 + parseInt(getObjectKey(cardCount, 2));
     }
     
     return parseInt(sortedHand[4].value);
