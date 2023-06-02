@@ -24,7 +24,7 @@ export const swapCards = async (gameID, cardsToSwap, hand, user) => {
   }, { merge: true });
   await setDoc(doc(db, "games", gameID, "players", user), {
     cards: hand,
-  });
+  }, { merge: true });
   endTurn(gameID)
   return
 }
