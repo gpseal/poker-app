@@ -54,7 +54,6 @@ const fourOfAKind = (sortedHand, cardCount, getObjectKey) => {
 }
 
 const fullHouse = (sortedHand, cardCount, getObjectKey) => { 
-  console.log(Object?.values(cardCount))
   if ((Object?.values(cardCount).includes(2)) && (Object?.values(cardCount).includes(3))) {
     console.log("here")
     return 600 + parseInt(sortedHand[0].value)

@@ -46,21 +46,25 @@ export const endTurn = async (gameID) => {
   await updateDoc(doc(db,"games", gameID), {
     turn: increment(1),
   })
-
   return
 }
 
-export const sendScore = async (gameID, score,) => {
-  console.log("sending score")
+export const sendScore = async (gameID, score) => {
   const scoreArray = await getDoc(doc(db,"games", gameID))
-  const newScores = (scoreArray.data().scores)
+  const newScores = (scoreArray?.data().scores)
   newScores.push(score)
   await updateDoc(doc(db,"games", gameID), {
     scores: newScores,
   })
 }
 
-export const findWinner = async (gameID, score) => {
-
+export const findWinner = async (score, gameScores) => {
+  console.log(score)
+  console.log(gameScores)
+  console.log(Math.max(gameScores));
+  if (score === Math.max(gameScores)) {
+    return "Congratulations, you won!"
+  }
+  return "Sorry, you lost"
 }
 
