@@ -8,7 +8,7 @@ import { joinGame } from "../fireBaseFunctions/gameFunctions";
 import { useNavigate } from "react-router-dom";
 import UserContext from "../components/UserContext";
 
-const JoinGame = () => {
+const JoinGame = (props) => {
 
     const navigate = useNavigate();
     const [gameData, setGameData] = useState();
@@ -17,7 +17,7 @@ const JoinGame = () => {
 
     const handleJoinGame = async (gameID) => {
         console.log("clicked")
-        await joinGame(currentUser, gameID);
+        await joinGame(currentUser, props.userName, gameID);
         navigate(`/game/${gameID}`);
     }
     

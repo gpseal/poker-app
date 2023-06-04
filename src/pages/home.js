@@ -32,8 +32,8 @@ const HomePage = () => {
                 Welcome {userProfile?.data().name}
               </div>
               <LogOut />
-              <CreateGame />
-              <JoinGame />
+              <CreateGame userName={userProfile?.data().name} />
+              <JoinGame userName={userProfile?.data().name} />
             </div>
           </div>
         )}

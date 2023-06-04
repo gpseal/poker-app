@@ -14,21 +14,25 @@ export const createGame = async (owner, deck, name, gameID) => {
       status: "waiting",
       deck: deck || null,
       current_players: [],
+      player_names: [],
       scores: [],
     });
     return
   };
 
-export const joinGame = async (user, gameID) => {
+export const joinGame = async (user, userName, gameID) => {
+    console.log(userName)
+    console.log(user)
     const deck = await getDeck(gameID)
     const hand = deck?.slice(0, 5)
     const newDeck = deck?.slice(5)
 
-    await updateDoc(doc(db,"games", gameID), {
-        players: increment(1),
-        deck: newDeck,
-        current_players: arrayUnion(user)
-    })
+    await updateDoc(doc(db, "games", gameID), {
+      players: increment(1),
+      deck: newDeck,
+      current_players: arrayUnion(user),
+      player_names: arrayUnion(userName),
+    });
 
     console.log("joining game")
 

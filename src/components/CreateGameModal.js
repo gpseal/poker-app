@@ -22,7 +22,7 @@ const CreateGameModal = ( props ) => {
         e.preventDefault();
         shuffle(deck)
         await createGame(currentUser, deck, gameName, gameID);
-        await joinGame(currentUser, gameID);
+        await joinGame(currentUser, props.userName, gameID);
         navigate(`/game/${gameID}`);
     }
 
