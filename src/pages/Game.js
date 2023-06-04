@@ -8,6 +8,7 @@ import { sendScore } from "../fireBaseFunctions/gameFunctions";
 import { findWinner } from "../fireBaseFunctions/gameFunctions";
 import GameMenu from "../components/GameMenu";
 import WaitForGameStart from "../components/WaitForGameStart";
+import { checkWinner } from "../fireBaseFunctions/gameFunctions";
 
 
 const Game = () => {
@@ -15,11 +16,9 @@ const Game = () => {
     const params = useParams();
     const gameID = params.id;
     const [gameData, setGameData] = useState();
-    const [score, setScore] = useState();
-    const [playerNum, setPlayerNum] = useState();
     const [result, setResult] = useState("");
     const [gameOver, setGameOver] = useState(false);
-    const bgColour = "red"
+    const [userData, setUserData] = useState();
 
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "games", gameID),(doc) => {
@@ -29,23 +28,25 @@ const Game = () => {
     }, [])
 
     useEffect(() => {
-        if (gameData) {
-            if (gameData?.scores.length === gameData?.players) {
-                  if (score === Math.max.apply(Math, gameData?.scores)) {
-                    setResult("You won!")
-                }
-            else setResult("Sorry, you lost")
-            }
+      const unsub = onSnapshot(doc(db, "games", gameID, "players", currentUser), (doc) => {
+        setUserData(doc.data());
+      });
+      return unsub;
+    }, []);
+
+    useEffect(() => {
+        if (userData?.score) {
+          const result = checkWinner(gameData, userData);
+          setResult(result)
         }
         return
     }, [gameData?.scores])
 
     useEffect(() => {
-        if (gameData && score && !gameOver) {
-            if (playerNum < gameData?.turn) {
-                sendScore(gameID, parseInt(score))
-                setGameOver(true)
-            };
+        if (gameData && userData?.score && !gameOver) {
+          if (userData?.playerNum < gameData?.turn) {
+            setGameOver(true);
+          }
         }
         return
     }, [gameData?.turn])
@@ -78,9 +79,8 @@ const Game = () => {
                 currentUser={currentUser}
                 turn={gameData?.turn}
                 players={gameData?.players}
-                setScore={setScore}
-                setPlayerNum={setPlayerNum}
                 gameOver={gameOver}
+                userData={userData}
               />
             </div>
           </div>

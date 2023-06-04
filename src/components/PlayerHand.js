@@ -5,63 +5,67 @@ import Card from "../cards/Card";
 import { ButtonStandard } from "./buttons/buttons";
 import { swapCards } from "../cards/cardFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
-import { CalculateScoreNew } from "../cards/Scoring";
+import { CalculateScore } from "../cards/Scoring";
 
 const PlayerHand = (props) => {
-    const [playerHand, setPlayerHand] = useState();
-    const [playerNum, setPlayerNum] = useState();
     const [activeCards, setActiveCards] = useState([]);
     const [isMyTurn, setIsMyTurn] = useState(true);
+    const [userData, setUserData] = useState();
+
+    console.log(userData)
 
     useEffect(() => {
-        const unsub = onSnapshot(doc(db, "games", props.gameID, "players", props.currentUser),(doc) => {
-            setPlayerHand(doc.data().cards)
-            props.setPlayerNum(doc.data().playerNum)
-            setPlayerNum(doc.data().playerNum)
-        })
-        return unsub
-    }, [])
+      if (props) {
+        setUserData(props?.userData)
+      }
+    }, [props?.userData])
 
     useEffect(() => {
-        //calculate scoreof current hand
-        if (playerHand) {
-            props.setScore(CalculateScoreNew(playerHand));
-        }
-        // seting player turn
-        props.turn === playerNum ? setIsMyTurn(true) : setIsMyTurn(false);
-    }, [props.turn, playerHand])
+      props.turn === userData?.playerNum
+        ? setIsMyTurn(true)
+        : setIsMyTurn(false);
+    }, [props.turn, userData?.cards]);
 
  
     return (
       <>
         <div className="pb-10 h-16">
-        {!props.gameOver && 
-          <div className="flex justify-center">
-            {isMyTurn ? (
-              <>
-                  {activeCards.length !==0  && <ButtonStandard
+          {!props.gameOver && (
+            <div className="flex justify-center">
+              {isMyTurn ? (
+                <>
+                  {activeCards.length !== 0 && (
+                    <ButtonStandard
+                      onClick={() =>
+                        swapCards(
+                          props.gameID,
+                          activeCards,
+                          userData?.cards,
+                          props.currentUser
+                        )
+                      }
+                      text={"Swap Cards"}
+                    />
+                  )}
+                  <ButtonStandard
                     onClick={() =>
-                      swapCards(
+                      endTurn(
                         props.gameID,
-                        activeCards,
-                        playerHand,
+                        userData?.cards,
                         props.currentUser
                       )
                     }
-                    text={"Swap Cards"}
-                  />}
-                  <ButtonStandard
-                    onClick={() => endTurn(props.gameID)}
                     text={"Hold"}
                   />
-              </>
-            ) : (
-              <div>Waiting......</div>
-            )}
-          </div>}
+                </>
+              ) : (
+                <div>Waiting......</div>
+              )}
+            </div>
+          )}
         </div>
         <div className="flex">
-          {playerHand?.map((card, index) => (
+          {userData?.cards.map((card, index) => (
             <Card
               cardId={index}
               key={card.suit + card.value}

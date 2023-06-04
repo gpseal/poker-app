@@ -16,7 +16,6 @@ const Card = (props) => {
     }
 
     const cardLoad = () => {
-        // console.log("object")
         setCardLoaded(true)
         return
     }
@@ -26,7 +25,6 @@ const Card = (props) => {
         active ? props.setActiveCards([...props.activeCards, props.cardId]) : props.setActiveCards(props.activeCards.filter(activeId => props.cardId !== activeId))
         active ? setCardTop(0) : setCardTop(10)
         active ? setCardTopRef(0) : setCardTopRef(15);
-        console.log(cardTopRef);
     },[active])
 
     useEffect(() => {

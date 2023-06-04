@@ -1,5 +1,5 @@
 
-export const CalculateScoreNew = (cardHand) => {
+export const CalculateScore = (cardHand) => {
 
   const sortableHand = cardHand?.map(c => c)
   const sortedHand = sortableHand?.sort((a, b) => {
@@ -33,7 +33,7 @@ const royalFlush = (sortedHand, cardCount, getObjectKey) => {
     sortedHand[0]?.value + 4 === sortedHand[4]?.value && 
     sortedHand[0]?.value === 10
   ) {
-    return 900 + parseInt(sortedHand[0].value);
+    return 900 + parseInt(sortedHand[4].value);
   }
 }
 

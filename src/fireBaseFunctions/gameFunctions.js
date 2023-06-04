@@ -4,6 +4,7 @@ import { db } from "../components/Firestore";
 import { getDeck } from "../cards/cardFunctions";
 import { useState } from "react";
 import { getDocument } from "./dataFunctions";
+import { CalculateScore } from "../cards/Scoring";
 
 export const createGame = async (owner, deck, name, gameID) => {
     await setDoc(doc(db, "games", gameID), {
@@ -44,7 +45,14 @@ export const joinGame = async (user, userName, gameID) => {
   return
 }
 
-export const endTurn = async (gameID) => {
+export const endTurn = async (gameID, cards, user) => {
+  const score = CalculateScore(cards)
+  await setDoc(doc(db, "games", gameID, "players", user), {
+    score: score,
+  }, { merge: true });
+
+  sendScore(gameID, score)
+
   await updateDoc(doc(db,"games", gameID), {
     turn: increment(1),
   })
@@ -76,4 +84,12 @@ export const beginGame = async (gameID) => {
       status: "playing",
     });
 }
+
+export const checkWinner =  (gameData, userData) => {
+  if (gameData?.scores.length === gameData?.players) {
+    if (userData?.score === Math.max.apply(Math, gameData?.scores)) {
+      return("You won!");
+    } else return("Sorry, you lost");
+  }
+};
 
