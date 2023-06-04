@@ -9,6 +9,7 @@ const Card = (props) => {
     const [cardTopRef, setCardTopRef] = useState(10)
     const [active, setActive] = useState(false)
     const [cardLoaded, setCardLoaded] = useState(false)
+    const cardDim = {w: "[150px]", h: ""}
 
     const handleCardClick = (e) => {
         setActive(!active)
@@ -34,7 +35,7 @@ const Card = (props) => {
     
     return (
       <>
-        <div className={` w-48 h-[315px] mr-5 `}>
+        <div className={` w-[25vh] mr-5 `}>
           <img
             onClick={handleCardClick}
             onLoad={cardLoad}
@@ -44,18 +45,20 @@ const Card = (props) => {
             src={props.card.image}
             alt={props.card.card + props.card.suit}
           />
-          <div className="w-48 h-[360px] absolute z-10 bg-gradient-to-t from-back from-40% "></div>
+
           <img
             onLoad={cardLoad}
-            className={`z-10 ease-in-out duration-500 rounded-xl cursor-pointer opacity-20 ${
+            className={`z-10 ease-in-out blur-sm duration-500 rounded-xl cursor-pointer opacity-10 ${
               active ? "pt-20" : "pt-0"
             } ${cardLoaded ? "visible" : "invisible"}`}
             src={props.card.image}
             alt={props.card.card + props.card.suit}
           />
           {!cardLoaded && (
-            <div className="w-48 h-[315px] flex justify-center items-center">
-                Loading
+            <div
+              className={`w- h-[${cardDim.h}px] flex justify-center items-center`}
+            >
+              Loading
               <FontAwesomeIcon icon={faSpinner} spin size="2xl" />
             </div>
           )}

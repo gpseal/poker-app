@@ -19,6 +19,7 @@ const Game = () => {
     const [playerNum, setPlayerNum] = useState();
     const [result, setResult] = useState("");
     const [gameOver, setGameOver] = useState(false);
+    const bgColour = "red"
 
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "games", gameID),(doc) => {
@@ -48,10 +49,11 @@ const Game = () => {
         }
         return
     }, [gameData?.turn])
-
     
     return (
-      <>
+      <div
+        className={`bg-gradient-to-t from-orange-500 from-40% via-orange-600 via-50% to-orange-600 to-90% `}
+      >
         {gameData?.status === "waiting" && (
           <WaitForGameStart
             owner={gameData?.owner}
@@ -60,28 +62,30 @@ const Game = () => {
             gameID={gameID}
           />
         )}
-        <GameMenu />
-        <div className="flex h-screen flex-col flex items-center verflow-clip bg-auto">
-          <div className="bg-red-100 h-16">
-            {result && (
-              <div className="bg-white w-64 h-16 flex items-center justify-center shadow-md border">
-                {result}
-              </div>
-            )}
-          </div>
-          <div>
-            <PlayerHand
-              gameID={gameID}
-              currentUser={currentUser}
-              turn={gameData?.turn}
-              players={gameData?.players}
-              setScore={setScore}
-              setPlayerNum={setPlayerNum}
-              gameOver={gameOver}
-            />
+        <div className="flex">
+          <GameMenu players={gameData?.player_names} turn={gameData?.turn} />
+          <div className="flex h-screen flex-col flex items-center w-4/5 pt-[25vh]">
+            <div className="bg-red-100 h-16">
+              {result && (
+                <div className="bg-white w-64 h-16 flex items-center justify-center shadow-md border">
+                  {result}
+                </div>
+              )}
+            </div>
+            <div>
+              <PlayerHand
+                gameID={gameID}
+                currentUser={currentUser}
+                turn={gameData?.turn}
+                players={gameData?.players}
+                setScore={setScore}
+                setPlayerNum={setPlayerNum}
+                gameOver={gameOver}
+              />
+            </div>
           </div>
         </div>
-      </>
+      </div>
     );
 }
 

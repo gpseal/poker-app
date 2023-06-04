@@ -16,17 +16,20 @@ function App() {
 
   return (
     <div className="bg-back min-h-screen">
-      {isLoading ? <Loading /> :
-      <div>
-        {!currentUser ? (
-          <Login />
-        ) : (
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/game/:id" element={<Game />} />
-          </Routes>
-        )}
-      </div>}
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div>
+          {!currentUser ? (
+            <Login />
+          ) : (
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/game/:id" element={<Game />} />
+            </Routes>
+          )}
+        </div>
+      )}
     </div>
   );
 }

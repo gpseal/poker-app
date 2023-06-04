@@ -15,7 +15,7 @@ module.exports = {
         button: "#2e3b52",
         "button-h": "#051124",
         back: "#282730",
-        fore: "#f0f3f7",
+        fore: "#f0f3f7"
       },
     },
   },
