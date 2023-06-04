@@ -7,6 +7,8 @@ import PlayerHand from "../components/PlayerHand";
 import { sendScore } from "../fireBaseFunctions/gameFunctions";
 import { findWinner } from "../fireBaseFunctions/gameFunctions";
 import GameMenu from "../components/GameMenu";
+import WaitForGameStart from "../components/WaitForGameStart";
+
 
 const Game = () => {
     const { currentUser } = useContext(UserContext);
@@ -50,10 +52,22 @@ const Game = () => {
     
     return (
       <>
+        {gameData?.status === "waiting" && (
+          <WaitForGameStart
+            owner={gameData?.owner}
+            user={currentUser}
+            players={gameData?.player_names}
+            gameID={gameID}
+          />
+        )}
         <GameMenu />
         <div className="flex h-screen flex-col flex items-center verflow-clip bg-auto">
           <div className="bg-red-100 h-16">
-            {result && <div className="bg-white w-64 h-16 flex items-center justify-center shadow-md border">{result}</div>}
+            {result && (
+              <div className="bg-white w-64 h-16 flex items-center justify-center shadow-md border">
+                {result}
+              </div>
+            )}
           </div>
           <div>
             <PlayerHand

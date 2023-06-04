@@ -34,8 +34,6 @@ export const joinGame = async (user, userName, gameID) => {
       player_names: arrayUnion(userName),
     });
 
-    console.log("joining game")
-
     const game = await getDoc(doc(db, "games", gameID))
 
     await setDoc(doc(db, "games", gameID, "players", user), {
@@ -70,5 +68,12 @@ export const findWinner = async (score, gameScores) => {
     return "Congratulations, you won!"
   }
   return "Sorry, you lost"
+}
+
+export const beginGame = async (gameID) => {
+  console.log(gameID)
+    await updateDoc(doc(db, "games", gameID), {
+      status: "playing",
+    });
 }
 
