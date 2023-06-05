@@ -53,7 +53,7 @@ const Game = () => {
     
     return (
       <div
-        className={`bg-gradient-to-t from-orange-500 from-40% via-orange-600 via-50% to-orange-600 to-90% `}
+        className={`bg-gradient-to-t from-cyan-800 from-40% via-cyan-800 via-50% to-cyan-900 to-90% `}
       >
         {gameData?.status === "waiting" && (
           <WaitForGameStart
@@ -64,12 +64,16 @@ const Game = () => {
           />
         )}
         <div className="flex">
-          <GameMenu players={gameData?.player_names} turn={gameData?.turn} />
+          <GameMenu
+            players={gameData?.player_names}
+            turn={gameData?.turn}
+            score={userData?.score}
+          />
           <div className="flex h-screen flex-col flex items-center w-4/5 pt-[25vh]">
             <div className="bg-red-100 h-16">
               {result && (
-                <div className="bg-white w-64 h-16 flex items-center justify-center shadow-md border">
-                  {result}
+                <div className="bg-black w-64 h-16 flex items-center justify-center bg-opacity-80 shadow-lg border-2 border-slate-500">
+                  <h2>{result}</h2>
                 </div>
               )}
             </div>

@@ -2,22 +2,29 @@ const GameMenu = (props) => {
     return (
       <>
         <div className="backdrop-blur-sm h-screen w-1/5">
-          <h1 className="bg-black bg-opacity-20 h-20 flex justify-center my-auto">
-            Menu
-          </h1>
+          <div className="bg-black bg-opacity-50 h-20 flex justify-center">
+            <h1 className="my-auto">Menu</h1>
+          </div>
           {props.players?.map((player, i) => (
             <div
-              className={`h-20 flex justify-center bg-black bg-opacity-${
-                i + 1 === props.turn ? 50 : 20
+              className={`py-5 flex justify-center bg-black bg-opacity-${
+                i + 1 === props.turn ? 70 : 50
               } mt-1`}
             >
               <h2 className="my-auto">{player}</h2>
             </div>
           ))}
-          <div className="w-full h-10 bg-black bg-opacity-20 mt-1"></div>
-          <div className="h-20 flex justify-center bg-black bg-opacity-20 mt-1">
-            dfdff
+          <div
+            className={`ease-in-out duration-500 flex flex-col h-32 items-center justify-center bg-black bg-opacity-50 ${
+              props.score && "mt-1 mb-1"
+            }`}
+          >
+            <div className={`ease-in-out duration-500 flex flex-col items-center opacity-${props.score ? 100 : 0}`}>
+              <h2>Your Score</h2>
+              <h1>{props.score}</h1>
+            </div>
           </div>
+          <div className="w-full h-full bg-black bg-opacity-50"></div>
         </div>
       </>
     );

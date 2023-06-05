@@ -88,8 +88,8 @@ export const beginGame = async (gameID) => {
 export const checkWinner =  (gameData, userData) => {
   if (gameData?.scores.length === gameData?.players) {
     if (userData?.score === Math.max.apply(Math, gameData?.scores)) {
-      return("You won!");
-    } else return("Sorry, you lost");
+      return("Your a Winner!");
+    } else return("You lost, loser");
   }
 };
 
