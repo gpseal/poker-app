@@ -26,14 +26,18 @@ const HomePage = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="flex justify-center w-screen">
-            <div className="flex flex-col content-center items-center">
-              <div className="flex justify-center">
-                Welcome {userProfile?.data().name}
+          <div className="bg-main-back h-screen">
+            <div className="flex justify-center w-screen bg-blue-500 h-screen bg-opacity-90">
+              <div className="flex flex-col content-center items-center pt-3 w-2/5 backdrop-blur-md">
+                <div className="bg-black bg-opacity-50 py-5 w-full">
+                  <div className="flex justify-center">
+                    <h2>Welcome {userProfile?.data().name}</h2>
+                  </div>
+                </div>
+                <CreateGame userName={userProfile?.data().name} />
+                <JoinGame userName={userProfile?.data().name} />
+                <LogOut />
               </div>
-              <LogOut />
-              <CreateGame userName={userProfile?.data().name} />
-              <JoinGame userName={userProfile?.data().name} />
             </div>
           </div>
         )}

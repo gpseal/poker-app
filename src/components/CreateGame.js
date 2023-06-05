@@ -8,7 +8,7 @@ const CreateGame = (props) => {
     const [modalVisible, setModalVisible] = useState(false)
 
     return (
-      <div className="py-10 flex justify-center items-center flex-col">
+      <div className="flex flex-col items-center w-full bg-black bg-opacity-50 mt-1 py-5">
         <CreateGameModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}

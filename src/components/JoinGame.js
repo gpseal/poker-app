@@ -41,7 +41,7 @@ const JoinGame = (props) => {
 
     return(
         <>
-        {gameData && <div className=""><h1>Join A Game</h1>
+        {gameData && <div className="flex flex-col items-center w-full bg-black bg-opacity-50 my-1 py-5"><h1>Join A Game</h1>
             <div className="bg-blue-300">
                 {gameData.map((data)=>{
                     return (
