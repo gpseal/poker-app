@@ -8,16 +8,17 @@ const CreateGame = (props) => {
     const [modalVisible, setModalVisible] = useState(false)
 
     return (
-      <div className="flex flex-col items-center w-full bg-black bg-opacity-50 mt-1 py-5">
+      <div className="flex flex-col mt-1 w-full">
+        <div
+          onClick={() => setModalVisible(!modalVisible)}
+          className="cursor-pointer flex justify-center items-center w-full bg-black bg-opacity-70 h-16 backdrop-blur-sm hover:bg-black"
+        >
+          <h2>Create a Game</h2>
+        </div>
         <CreateGameModal
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           userName={props.userName}
-        />
-        <h1>Create a Game</h1>
-        <ButtonStandard
-          onClick={() => setModalVisible(true)}
-          text={"Create New Game"}
         />
       </div>
     );

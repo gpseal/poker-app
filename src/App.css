@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-  color: rgb(255, 136, 0);
+  color: rgb(255, 0, 187);
   font-weight: 500;
   font-size: xx-large;
 }
@@ -12,6 +12,12 @@ h2 {
   color: rgb(255, 255, 255);
   font-weight: 500;
   font-size: x-large;
+}
+
+h3 {
+  color: rgb(255, 255, 255);
+  font-weight: 200;
+  font-size: large;
 }
 
 .App {
