@@ -19,9 +19,17 @@ const GameMenu = (props) => {
               props.score && "mt-1 mb-1"
             }`}
           >
-            <div className={`ease-in-out duration-500 flex flex-col items-center opacity-${props.score ? 100 : 0}`}>
-              <h2>Your Score</h2>
-              <h1>{props.score}</h1>
+            <div
+              className={`ease-in-out duration-500 flex flex-col items-center opacity-${
+                props.score ? 100 : 0
+              }`}
+            >
+              {props?.score && (
+                <>
+                  <h2>Your Score</h2>
+                  <h1>{props.score}</h1>
+                </>
+              )}
             </div>
           </div>
           <div className="w-full h-full bg-black bg-opacity-50"></div>

@@ -12,8 +12,6 @@ const PlayerHand = (props) => {
     const [isMyTurn, setIsMyTurn] = useState(true);
     const [userData, setUserData] = useState();
 
-    console.log(userData)
-
     useEffect(() => {
       if (props) {
         setUserData(props?.userData)

@@ -29,6 +29,7 @@ const JoinGame = (props) => {
           id: game.id,
           name: game.data().name,
           players: game.data().players,
+          status: game.data().status,
         });
       });
       setGameData(gameData);
@@ -46,15 +47,19 @@ const JoinGame = (props) => {
           </h2>
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((data) => (
-              <JoinGameButton
-                name={data.name}
-                id={data.id}
-                players={data.players}
-                user={currentUser}
-                userName={props.userName}
-              />
+              <>
+                {data?.status === "waiting" && (
+                  <JoinGameButton
+                    key={data.id}
+                    name={data.name}
+                    id={data.id}
+                    players={data.players}
+                    user={currentUser}
+                    userName={props.userName}
+                  />
+                )}
+              </>
             ))}
-            ;
           </div>
         </>
       )}

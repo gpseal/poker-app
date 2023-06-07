@@ -88,8 +88,17 @@ export const beginGame = async (gameID) => {
 export const checkWinner =  (gameData, userData) => {
   if (gameData?.scores.length === gameData?.players) {
     if (userData?.score === Math.max.apply(Math, gameData?.scores)) {
-      return("Your a Winner!");
+      // if player is the winner, send cards to be displayed to other players
+      return("You're a Winner!");
     } else return("You lost, loser");
   }
 };
+
+export const sendWinningHand = async (gameID, cards, winningHand) => {
+    if (!winningHand) {
+      await updateDoc(doc(db, "games", gameID), {
+        winningHand: cards,
+      });
+    }
+}
 
