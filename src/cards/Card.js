@@ -37,9 +37,9 @@ const Card = (props) => {
           <img
             onClick={handleCardClick}
             onLoad={cardLoad}
-            className={`z-20 ease-in-out duration-500 rounded-xl cursor-pointer mt-${cardTop} ${
-              cardLoaded ? "visible" : "invisible"
-            }`}
+            className={`z-20 ease-in-out duration-500 rounded-xl cursor-pointer ${
+              active ? "pt-0" : "pt-10"
+            } ${cardLoaded ? "visible" : "invisible"}`}
             src={props.card.image}
             alt={props.card.card + props.card.suit}
           />

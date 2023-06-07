@@ -3,12 +3,12 @@ const GameMenu = (props) => {
       <>
         <div className="backdrop-blur-sm h-screen w-1/5">
           <div className="bg-black bg-opacity-50 h-20 flex justify-center">
-            <h1 className="my-auto">Menu</h1>
+            <h1 className="my-auto">Who's Turn....</h1>
           </div>
           {props.players?.map((player, i) => (
             <div
-              className={`py-5 flex justify-center bg-black bg-opacity-${
-                i + 1 === props.turn ? 70 : 50
+              className={`py-5 flex justify-center bg-opacity-50 bg-${
+                i + 1 === props.turn ? "purple-500" : "black"
               } mt-1`}
             >
               <h2 className="my-auto">{player}</h2>

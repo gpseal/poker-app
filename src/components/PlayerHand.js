@@ -28,7 +28,7 @@ const PlayerHand = (props) => {
     return (
       <>
         <div className="pb-10 h-16">
-          {!props.gameOver && (
+          {!props.gamezOver && (
             <div className="flex justify-center">
               {isMyTurn ? (
                 <>
@@ -57,7 +57,7 @@ const PlayerHand = (props) => {
                   />
                 </>
               ) : (
-                <div>Waiting......</div>
+                <h2>Wait Your Turn</h2>
               )}
             </div>
           )}

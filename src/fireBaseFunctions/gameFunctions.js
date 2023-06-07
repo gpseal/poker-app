@@ -17,13 +17,12 @@ export const createGame = async (owner, deck, name, gameID) => {
       current_players: [],
       player_names: [],
       scores: [],
+      winningName: "",
     });
     return
   };
 
 export const joinGame = async (user, userName, gameID) => {
-    console.log(userName)
-    console.log(user)
     const deck = await getDeck(gameID)
     const hand = deck?.slice(0, 5)
     const newDeck = deck?.slice(5)
@@ -38,6 +37,7 @@ export const joinGame = async (user, userName, gameID) => {
     const game = await getDoc(doc(db, "games", gameID))
 
     await setDoc(doc(db, "games", gameID, "players", user), {
+        name: userName,
         cards: hand,
         playerNum: game.data().players,
     })
@@ -89,15 +89,17 @@ export const checkWinner =  (gameData, userData) => {
   if (gameData?.scores.length === gameData?.players) {
     if (userData?.score === Math.max.apply(Math, gameData?.scores)) {
       // if player is the winner, send cards to be displayed to other players
-      return("You're a Winner!");
-    } else return("You lost, loser");
+      return(true);
+    } else return(false);
   }
 };
 
-export const sendWinningHand = async (gameID, cards, winningHand) => {
+export const sendWinningHand = async (gameID, cards, winningHand, name) => {
+  console.log(name)
     if (!winningHand) {
       await updateDoc(doc(db, "games", gameID), {
         winningHand: cards,
+        winningName: name,
       });
     }
 }

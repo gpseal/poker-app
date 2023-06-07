@@ -7,18 +7,19 @@ import PlayerHand from "../components/PlayerHand";
 import GameMenu from "../components/GameMenu";
 import WaitForGameStart from "../components/WaitForGameStart";
 import { checkWinner, sendWinningHand } from "../fireBaseFunctions/gameFunctions";
-import WinningHand from "../components/WinningHand";
+import ResultHand from "../components/ResultHand";
+import GameResult from "../components/GameResult";
 
 const Game = () => {
     const { currentUser } = useContext(UserContext);
     const params = useParams();
     const gameID = params.id;
     const [gameData, setGameData] = useState();
-    const [result, setResult] = useState("");
+    const [winner, setWinner] = useState("");
     const [gameOver, setGameOver] = useState(false);
     const [userData, setUserData] = useState();
 
-    console.log(gameData);
+    console.log(userData);
 
     useEffect(() => {
         const unsub = onSnapshot(doc(db, "games", gameID),(doc) => {
@@ -38,13 +39,13 @@ const Game = () => {
     useEffect(() => {
         if (userData?.score) {
           const result = checkWinner(gameData, userData, gameID);
-          setResult(result)
+          setWinner(result)
         }
         return
     }, [gameData?.scores])
 
-    if (result === "You're a Winner!") {
-      sendWinningHand(gameID, userData.cards, gameData?.winningHand);
+    if (winner) {
+      sendWinningHand(gameID, userData?.cards, gameData?.winningHand, userData?.name);
     }
 
     useEffect(() => {
@@ -60,7 +61,7 @@ const Game = () => {
       <div
         className={`bg-gradient-to-t from-cyan-900 from-40% via-cyan-800 via-50% to-sky-950 to-90% h-full`}
       >
-        {/* {gameData?.status === "waiting" && (
+        {gameData?.status === "waiting" && (
           <WaitForGameStart
             gameName={gameData?.name}
             owner={gameData?.owner}
@@ -68,29 +69,22 @@ const Game = () => {
             players={gameData?.player_names}
             gameID={gameID}
           />
-        )} */}
+        )}
+        {gameData?.turn > gameData?.players && (
+          <GameResult
+            winner={winner}
+            yourHand={userData?.cards}
+            winningHand={gameData?.winningHand}
+            winningName={gameData?.winningName}
+          />
+        )}
         <div className="flex">
           <GameMenu
             players={gameData?.player_names}
             turn={gameData?.turn}
             score={userData?.score}
           />
-          <div className="flex flex-col flex items-center w-4/5">
-            <div className="flex h-60 flex-wrap w-full justify-center pb-3">
-              {gameData?.winningHand && result !== "You're a Winner!" && (
-                <>
-                  <h2 className="w-full text-center">The Winning Hand</h2>
-                  <WinningHand cards={gameData?.winningHand} />
-                </>
-              )}
-            </div>
-            <div className="bg-red-100 h-16">
-              {result && (
-                <div className="bg-black w-64 h-16 flex items-center justify-center bg-opacity-80 shadow-lg border-2 border-slate-500">
-                  <h2>{result}</h2>
-                </div>
-              )}
-            </div>
+          <div className="flex flex-col flex items-center w-4/5 mt-[25vh]">
             <div>
               <PlayerHand
                 gameID={gameID}
