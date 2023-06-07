@@ -14,7 +14,7 @@
 
     return (
       <button
-        className="w-[24.5%] mb-1 bg-black/70 backdrop-blur-sm hover:bg-purple-900 h-24 flex flex-col items-center justify-center"
+        className="bg-black/70 backdrop-blur-sm hover:bg-purple-900 h-24 flex flex-col items-center justify-center"
         onClick={() => handleJoinGame(props.id)}
       >
         <h2>{props.name}</h2>

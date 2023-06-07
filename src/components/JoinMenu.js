@@ -44,7 +44,7 @@ const JoinGame = (props) => {
           <h2 className="flex items-center justify-center w-full my-1 h-16 bg-black/70 backdrop-blur-sm">
             Join A Game
           </h2>
-          <div className="flex flex-wrap w-full justify-between items-center max-h-full overflow-auto">
+          <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((data) => (
               <JoinGameButton
                 name={data.name}

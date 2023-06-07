@@ -4,12 +4,9 @@ import { onSnapshot, collection, doc } from "firebase/firestore";
 import { db } from "../components/Firestore";
 import UserContext from "../components/UserContext";
 import PlayerHand from "../components/PlayerHand";
-import { sendScore } from "../fireBaseFunctions/gameFunctions";
-import { findWinner } from "../fireBaseFunctions/gameFunctions";
 import GameMenu from "../components/GameMenu";
 import WaitForGameStart from "../components/WaitForGameStart";
 import { checkWinner } from "../fireBaseFunctions/gameFunctions";
-
 
 const Game = () => {
     const { currentUser } = useContext(UserContext);
@@ -57,6 +54,7 @@ const Game = () => {
       >
         {gameData?.status === "waiting" && (
           <WaitForGameStart
+            gameName={gameData?.name}
             owner={gameData?.owner}
             user={currentUser}
             players={gameData?.player_names}
