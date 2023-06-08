@@ -3,8 +3,8 @@ import ResultHand from "./ResultHand";
 const GameResult = (props) => {
     return (
       <div
-        className={`z-30 w-screen h-screen bg-${
-          props?.winner ? "winning-back" : "loosing-back"
+        className={`z-30 w-screen h-screen ${
+          props?.winner ? "bg-winning-back" : "bg-loosing-back"
         } bg-cover flex flex-col justify-center items-center bg-center`}
       >
         <div className="bg-black/70 flex flex-col justify-center items-center py-5 px-10 backdrop-blur-sm border border-pink-500">

@@ -2,6 +2,7 @@ import { getDocument } from "../fireBaseFunctions/dataFunctions";
 import { db } from "../components/Firestore";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
+import { CalculateScore } from "./Scoring";
 
 export const shuffle = deck => {
     for (let i = deck.length - 1; i > 0; i--) {
@@ -26,7 +27,11 @@ export const swapCards = async (gameID, cardsToSwap, hand, user) => {
     cards: hand,
   }, { merge: true });
 
-  endTurn(gameID, hand, user)
+  // FOR TESTING, REMOVE THIS
+  const score = CalculateScore(hand)
+  console.log(score)
+  
+  // endTurn(gameID, hand, user)
   return
 }
 

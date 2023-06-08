@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, setDoc, addDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, getDoc, setDoc, addDoc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../components/Firestore";
 
 export const getDocument = async (docRef) => {
@@ -6,4 +6,9 @@ export const getDocument = async (docRef) => {
   return docSnap;
 };
 
-
+export const listenForChanges = (ref, setData) => {
+  const unsub = onSnapshot(ref, (doc) => {
+      setData(doc.data());
+  });
+  return unsub;
+}

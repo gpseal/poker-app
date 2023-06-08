@@ -9,6 +9,7 @@ import WaitForGameStart from "../components/WaitForGameStart";
 import { checkWinner, sendWinningHand } from "../fireBaseFunctions/gameFunctions";
 import ResultHand from "../components/ResultHand";
 import GameResult from "../components/GameResult";
+import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
 
 const Game = () => {
     const { currentUser } = useContext(UserContext);
@@ -18,27 +19,23 @@ const Game = () => {
     const [winner, setWinner] = useState("");
     const [turnOver, setTurnOver] = useState(false);
     const [userData, setUserData] = useState();
+    const gameRef = doc(db, "games", gameID);
+    const userRef = doc(db, "games", gameID, "players", currentUser);
 
-    console.log(userData);
-
-    useEffect(() => {
-        const unsub = onSnapshot(doc(db, "games", gameID),(doc) => {
-            setGameData(doc.data())
-        })
-        return unsub
-    }, [])
-
-    useEffect(() => {
-      const unsub = onSnapshot(doc(db, "games", gameID, "players", currentUser), (doc) => {
-        setUserData(doc.data());
-      });
+    useEffect (() => {
+      const unsub = listenForChanges(gameRef, setGameData);
       return unsub;
     }, []);
 
+    useEffect(() => {
+      const unsub = listenForChanges(userRef, setUserData);
+      return unsub;
+    }, []);
 
     useEffect(() => {
         if (userData?.score) {
           const result = checkWinner(gameData, userData, gameID);
+          setTurnOver(true);
           setWinner(result)
         }
         return
@@ -47,15 +44,6 @@ const Game = () => {
     if (winner) {
       sendWinningHand(gameID, userData?.cards, gameData?.winningHand, userData?.name);
     }
-
-    useEffect(() => {
-        if (gameData && userData?.score && !turnOver) {
-          if (userData?.playerNum < gameData?.turn) {
-            setTurnOver(true);
-          }
-        }
-        return
-    }, [gameData?.turn])
     
     return (
       <div
@@ -91,7 +79,7 @@ const Game = () => {
                 currentUser={currentUser}
                 turn={gameData?.turn}
                 players={gameData?.players}
-                gameOver={turnOver}
+                turnOver={turnOver}
                 userData={userData}
               />
             </div>

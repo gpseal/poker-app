@@ -1,4 +1,5 @@
 const GameMenu = (props) => {
+  console.log(props.turn)
     return (
       <>
         <div className="backdrop-blur-sm h-screen w-1/5">
@@ -7,8 +8,9 @@ const GameMenu = (props) => {
           </div>
           {props.players?.map((player, i) => (
             <div
-              className={`py-5 flex justify-center bg-opacity-50 bg-${
-                i + 1 === props.turn ? "purple-500" : "black"
+              key={i}
+              className={`py-5 flex justify-center bg-opacity-50 ${
+                i + 1 === props.turn ? "bg-purple-500" : "bg-black"
               } mt-1`}
             >
               <h2 className="my-auto">{player}</h2>

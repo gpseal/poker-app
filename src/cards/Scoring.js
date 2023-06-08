@@ -14,6 +14,7 @@ export const CalculateScore = (cardHand) => {
   const getObjectKey = (obj, value) => {
     return Object.keys(obj).find(key => obj[key] === value)
   }
+
   for (let index = 0; index < functions.length; index++) {
     const f = functions[index];
     const score = f(sortedHand, cardCount, getObjectKey)
@@ -27,6 +28,7 @@ export const CalculateScore = (cardHand) => {
 const functions = [];
 
 const royalFlush = (sortedHand, cardCount, getObjectKey) => {
+  console.log(sortedHand)
   if (
     sortedHand?.filter((card) => card.suit === sortedHand[0].suit)
       .length === 5 &&
