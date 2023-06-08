@@ -18,8 +18,8 @@ module.exports = {
       colors: {
         "button": "black",
         "button-h": "#051124",
-        back: "#282730",
-        fore: "#f0f3f7",
+        "back": "#282730",
+        "fore": "#f0f3f7",
       },
     },
   },

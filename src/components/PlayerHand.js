@@ -24,11 +24,10 @@ const PlayerHand = (props) => {
         : setIsMyTurn(false);
     }, [props.turn, userData?.cards]);
 
- 
     return (
       <>
         <div className="pb-10 h-16">
-          {!props.gamezOver && (
+          {!props.turnOver && (
             <div className="flex justify-center">
               {isMyTurn ? (
                 <>

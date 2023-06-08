@@ -16,7 +16,7 @@ const Game = () => {
     const gameID = params.id;
     const [gameData, setGameData] = useState();
     const [winner, setWinner] = useState("");
-    const [gameOver, setGameOver] = useState(false);
+    const [turnOver, setTurnOver] = useState(false);
     const [userData, setUserData] = useState();
 
     console.log(userData);
@@ -49,9 +49,9 @@ const Game = () => {
     }
 
     useEffect(() => {
-        if (gameData && userData?.score && !gameOver) {
+        if (gameData && userData?.score && !turnOver) {
           if (userData?.playerNum < gameData?.turn) {
-            setGameOver(true);
+            setTurnOver(true);
           }
         }
         return
@@ -91,7 +91,7 @@ const Game = () => {
                 currentUser={currentUser}
                 turn={gameData?.turn}
                 players={gameData?.players}
-                gameOver={gameOver}
+                gameOver={turnOver}
                 userData={userData}
               />
             </div>
