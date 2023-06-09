@@ -10,13 +10,13 @@ const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setIsLoading } = useContext(UserContext);
-  const { setIsAuthenticated } = useContext(UserContext);
+  // const { setIsAuthenticated } = useContext(UserContext);
 
   const handleLogin = async (e) => {
     setIsLoading(true)
     e.preventDefault();
     await loginUser(email, password, setCurrentUser)
-    setIsAuthenticated(true)
+    // setIsAuthenticated(true)
     setIsLoading(false)
     };
 

@@ -8,7 +8,7 @@ export const UserProvider = ({children}) => {
 
     const [currentUser, setCurrentUser] = useState();
     const [isLoading, setIsLoading] = useState(true);
-    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    // const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
         setIsLoading(true);
@@ -29,8 +29,8 @@ export const UserProvider = ({children}) => {
           setCurrentUser,
           isLoading,
           setIsLoading,
-          isAuthenticated,
-          setIsAuthenticated,
+          // isAuthenticated,
+          // setIsAuthenticated,
         }}
       >
         {children}

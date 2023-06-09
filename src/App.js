@@ -2,7 +2,7 @@ import './App.css';
 import Login from './components/authentication/Login';
 import UserContext from './components/UserContext';
 import { useContext, useEffect } from 'react';
-import HomePage from './pages/home';
+import HomePage from './pages/HomePage';
 import Loading from './components/Loading';
 import { Routes, Route } from "react-router-dom";
 import Game from './pages/Game';
