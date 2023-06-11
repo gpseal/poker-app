@@ -46,6 +46,7 @@ const CreateGameModal = ( props ) => {
                 />
                 <div>
                   <button
+                    data-testid="CreateButton"
                     id="create-game"
                     type="subimt"
                     className="p-2 w-20 mt-2 bg-button text-white hover:bg-button-h border border-black hover:border-white"
@@ -53,7 +54,7 @@ const CreateGameModal = ( props ) => {
                     Create
                   </button>
                   <button
-                    id="create-game"
+                    id="cancel-game"
                     className="p-2 w-20 mt-5 ml-5 bg-button text-white hover:bg-button-h border border-black hover:border-white"
                     onClick={() => props.setModalVisible(false)}
                   >
