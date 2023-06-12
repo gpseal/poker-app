@@ -19,8 +19,9 @@ const Game = () => {
     const [winner, setWinner] = useState("");
     const [turnOver, setTurnOver] = useState(false);
     const [userData, setUserData] = useState();
-    const gameRef = doc(db, "games", gameID);
-    const userRef = doc(db, "games", gameID, "players", currentUser);
+    
+    const gameRef = `games/${gameID}`
+    const userRef = `games/${gameID}/players/${currentUser}`
 
     useEffect (() => {
       const unsub = listenForChanges(gameRef, setGameData);
@@ -44,19 +45,23 @@ const Game = () => {
     if (winner) {
       sendWinningHand(gameID, userData?.cards, gameData?.winningHand, userData?.name);
     }
+
+    // console.log(userData)
     
     return (
       <div
         className={`bg-gradient-to-t from-cyan-900 from-40% via-cyan-800 via-50% to-sky-950 to-90% h-full`}
       >
         {gameData?.status === "waiting" && (
-          <WaitForGameStart
-            gameName={gameData?.name}
-            owner={gameData?.owner}
-            user={currentUser}
-            players={gameData?.player_names}
-            gameID={gameID}
-          />
+          <div data-testid="waitForGameToStart">
+            <WaitForGameStart
+              gameName={gameData?.name}
+              owner={gameData?.owner}
+              user={currentUser}
+              players={gameData?.player_names}
+              gameID={gameID}
+            />
+          </div>
         )}
         {gameData?.turn > gameData?.players && (
           <GameResult

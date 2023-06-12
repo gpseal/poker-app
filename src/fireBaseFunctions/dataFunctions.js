@@ -7,7 +7,7 @@ export const getDocument = async (docRef) => {
 };
 
 export const listenForChanges = (ref, setData) => {
-  const unsub = onSnapshot(ref, (doc) => {
+  const unsub = onSnapshot(doc(db, ref), (doc) => {
       setData(doc.data());
   });
   return unsub;

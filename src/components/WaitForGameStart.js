@@ -5,7 +5,7 @@ const WaitForGameStart = (props) => {
     return (
       <div className="z-30 w-screen h-screen bg-waiting-back bg-cover flex justify-center items-center">
         <div className="w-2/5">
-          <h1 className="bg-black/70 w-full backdrop-blur-sm text-center">{props.gameName} Waiting Room</h1>
+          <h1 data-testid="waitingGameName" className="bg-black/70 w-full backdrop-blur-sm text-center">{props.gameName} Waiting Room</h1>
           <h2 className="bg-black/70 w-full backdrop-blur-sm text-center py-2">Players Joined</h2>
           <div className="flex [&>*:first-child]:ml-0">
             {props.players?.map((name) => (
