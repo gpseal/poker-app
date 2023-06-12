@@ -46,6 +46,24 @@ const addCardValues = (cards) => {
   return total
 
 }
+
+// creating scorable array, ensuring matching cards are placed at the front for score calculation
+const createScorableArray = (findMatchingCards, start, end) => {
+
+  // sorting by adding matching values to front of array
+  const sortedMatchingCards = (Object.entries(findMatchingCards).sort((a,b) => b[1]-a[1]))
+  const scorableHand = []
+
+  //extracting vlaues of cards from array
+  sortedMatchingCards.forEach(card => {
+    scorableHand.push(card[0])
+  });
+
+  //sorting cards that do not have a matching value
+  sortUnmatchingCards(scorableHand, start, end)
+  
+  return scorableHand
+}
   
 const functions = [];
 
@@ -97,21 +115,6 @@ const straight = (sortedHand, findMatchingCards, getObjectKey) => {
   }
 }
 
-// extracting card values from sorted matching cards array
-const createScorableArray = (findMatchingCards, start, end) => {
-
-  const sortedMatchingCards = (Object.entries(findMatchingCards).sort((a,b) => b[1]-a[1]))
-  const scorableHand = []
-  sortedMatchingCards.forEach(card => {
-    scorableHand.push(card[0])
-  });
-  sortUnmatchingCards(scorableHand, start, end)
-  
-  return scorableHand
-}
-
-
-
 const threeOfKind = (sortedHand, findMatchingCards, getObjectKey) => { 
   if (Object?.values(findMatchingCards).includes(3)) {
 
@@ -123,7 +126,10 @@ const threeOfKind = (sortedHand, findMatchingCards, getObjectKey) => {
 
 const twoPairs = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(2) && Object?.values(findMatchingCards).length === 3) {
-    return 2000000 + addCardValues(sortedHand);
+
+    const scorableHand = createScorableArray(findMatchingCards, 2, 2)
+
+    return 2000000 + addCardValues(scorableHand);
   }
 }
 
@@ -131,7 +137,7 @@ const pair = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(2)) {
 
     const scorableHand = createScorableArray(findMatchingCards, 1, 3)
-    
+
     return 1000000 + addCardValues(scorableHand);
   }
 }
