@@ -27,11 +27,11 @@ export const swapCards = async (gameID, cardsToSwap, hand, user) => {
     cards: hand,
   }, { merge: true });
 
-  // FOR TESTING, REMOVE THIS
-  const score = CalculateScore(hand)
-  console.log(score)
+  // // FOR TESTING, REMOVE THIS
+  // const score = CalculateScore(hand)
+  // console.log(score)
   
-  // endTurn(gameID, hand, user)
+  endTurn(gameID, hand, user)
   return
 }
 

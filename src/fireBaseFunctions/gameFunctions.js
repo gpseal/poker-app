@@ -51,11 +51,15 @@ export const endTurn = async (gameID, cards, user) => {
     score: score,
   }, { merge: true });
 
-  sendScore(gameID, score)
+  // sendScore(gameID, score.score)
+    await updateDoc(doc(db, "games", gameID), {
+      scores: arrayUnion(score.score),
+      turn: increment(1)
+    });
 
-  await updateDoc(doc(db,"games", gameID), {
-    turn: increment(1),
-  })
+  // await updateDoc(doc(db,"games", gameID), {
+  //   turn: increment(1),
+  // })
   return
 }
 
@@ -87,7 +91,7 @@ export const beginGame = async (gameID) => {
 
 export const checkWinner =  (gameData, userData) => {
   if (gameData?.scores.length === gameData?.players) {
-    if (userData?.score === Math.max.apply(Math, gameData?.scores)) {
+    if (userData?.score.score === Math.max.apply(Math, gameData?.scores)) {
       // if player is the winner, send cards to be displayed to other players
       return(true);
     } else return(false);

@@ -70,7 +70,7 @@ const Game = () => {
           <GameMenu
             players={gameData?.player_names}
             turn={gameData?.turn}
-            score={userData?.score}
+            score={userData?.score?.handName}
           />
           <div className="flex flex-col flex items-center w-4/5 mt-[25vh]">
             <div>
