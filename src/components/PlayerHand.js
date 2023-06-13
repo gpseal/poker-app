@@ -46,11 +46,7 @@ const PlayerHand = (props) => {
                   )}
                   <ButtonStandard
                     onClick={() =>
-                      endTurn(
-                        props.gameID,
-                        userData?.cards,
-                        props.currentUser
-                      )
+                      endTurn(props.gameID, userData?.cards, props.currentUser)
                     }
                     text={"Hold"}
                   />
@@ -61,7 +57,7 @@ const PlayerHand = (props) => {
             </div>
           )}
         </div>
-        <div className="flex">
+        <div className="flex flex-wrap sm:flex-nowrap">
           {userData?.cards.map((card, index) => (
             <Card
               cardId={index}

@@ -40,6 +40,7 @@ const CreateGameModal = ( props ) => {
                   type="text"
                   id="gameName"
                   name="gameNAme"
+                  maxlength="10"
                   onChange={(e) => setGameName(e.target.value)}
                   placeholder="Game Name"
                   value={gameName}

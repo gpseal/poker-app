@@ -3,13 +3,22 @@ import { beginGame } from "../fireBaseFunctions/gameFunctions"
 
 const WaitForGameStart = (props) => {
     return (
-      <div className="z-30 w-screen h-screen bg-waiting-back bg-cover flex justify-center items-center">
-        <div className="w-2/5">
-          <h1 data-testid="waitingGameName" className="bg-black/70 w-full backdrop-blur-sm text-center">{props.gameName} Waiting Room</h1>
-          <h2 className="bg-black/70 w-full backdrop-blur-sm text-center py-2">Players Joined</h2>
-          <div className="flex [&>*:first-child]:ml-0">
+      <div className="z-30 w-screen h-screen bg-waiting-back bg-cover bg-center flex justify-center items-center">
+        <div className="md:w-4/5 lg:w-2/5">
+          <h1
+            data-testid="waitingGameName"
+            className="bg-black/70 w-full backdrop-blur-sm text-center"
+          >
+            {`${props.gameName} \n Waiting Room`}
+          </h1>
+          <h2 className="bg-black/70 w-full backdrop-blur-sm text-center py-2">
+            Players Joined
+          </h2>
+          <div className="flex [&>*:first-child]:ml-0 flex-wrap md:flex-nowrap">
             {props.players?.map((name) => (
-              <h2 className="py-4 my-1 bg-black/70 w-full ml-1 flex justify-center backdrop-blur-sm">{name}</h2>
+              <h2 className="py-4 my-1 bg-black/70 w-full ml-1 flex justify-center backdrop-blur-sm">
+                {name}
+              </h2>
             ))}
           </div>
           <div className="w-full flex justify-center mt-5">

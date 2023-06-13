@@ -33,12 +33,14 @@ const Card = (props) => {
     
     return (
       <>
-        <div className={` w-[25vh] mr-5 `}>
+        <div className={`sm:w-3/12 w-4/12 md:px-3 px-1`}>
           <img
             onClick={handleCardClick}
             onLoad={cardLoad}
-            className={`z-20 ease-in-out duration-500 rounded-xl cursor-pointer ${
-              active ? "pt-0" : "pt-10"
+            className={`z-20 ease-in-out duration-500 rounded-xl cursor-pointer mt-5 sm:mt-0 ${
+              active
+                ? "sm:pt-0 border-8 border-purple-500 sm:border-0"
+                : "sm:pt-10"
             } ${cardLoaded ? "visible" : "invisible"}`}
             src={props.card.image}
             alt={props.card.card + props.card.suit}
@@ -46,8 +48,8 @@ const Card = (props) => {
 
           <img
             onLoad={cardLoad}
-            className={`z-10 ease-in-out blur-sm duration-500 rounded-xl cursor-pointer opacity-10 ${
-              active ? "pt-20" : "pt-0"
+            className={`z-10 ease-in-out blur-sm duration-500 rounded-xl cursor-pointer opacity-10 h-0 sm:h-1/2 ${
+              active ? "sm:pt-20" : "sm:pt-0"
             } ${cardLoaded ? "visible" : "invisible"}`}
             src={props.card.image}
             alt={props.card.card + props.card.suit}

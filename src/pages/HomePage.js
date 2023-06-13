@@ -25,9 +25,9 @@ const HomePage = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="bg-main-back bg-cover flex justify-center w-screen h-screen">
-          <div className="w-2/5">
-            <h1 className="w-full font-['Audiowide'] text-5xl text-pink-500 py-1">
+        <div className="bg-main-back bg-center bg-cover flex justify-center w-screen h-screen">
+          <div className="w-11/12 sm:w-3/5 md:w-2/5">
+            <h1 className="w-full font-['Audiowide'] text-3xl md:text-5xl text-pink-500 py-1">
               POKER 2000
             </h1>
             <div className="bg-black bg-opacity-70 py-5 w-full backdrop-blur-sm">
