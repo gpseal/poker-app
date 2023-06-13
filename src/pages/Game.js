@@ -46,7 +46,7 @@ const Game = () => {
       sendWinningHand(gameID, userData?.cards, gameData?.winningHand, userData?.name);
     }
 
-    // console.log(userData)
+    console.log(gameData)
     
     return (
       <div
@@ -60,6 +60,7 @@ const Game = () => {
               user={currentUser}
               players={gameData?.player_names}
               gameID={gameID}
+              key={gameID}
             />
           </div>
         )}

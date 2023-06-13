@@ -1,5 +1,4 @@
 const GameMenu = (props) => {
-  console.log(props.turn)
     return (
       <>
         <div className="backdrop-blur-sm h-screen w-1/5">
