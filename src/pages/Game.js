@@ -45,14 +45,9 @@ const Game = () => {
     if (winner) {
       sendWinningHand(gameID, userData?.cards, gameData?.winningHand, userData?.name);
     }
-
-    console.log(gameData)
     
     return (
-      <div
-        class="Game-Back"
-      >
-        
+      <div class="Game-Back">
         {gameData?.status === "waiting" && (
           <div data-testid="waitForGameToStart">
             <WaitForGameStart
@@ -73,13 +68,13 @@ const Game = () => {
             winningName={gameData?.winningName}
           />
         )}
-        <div className="flex flex-col sm:flex-row w-full">
+        <div className="flex flex-col sm:flex-row w-full h-full">
           <GameMenu
             players={gameData?.player_names}
             turn={gameData?.turn}
             score={userData?.score?.handName}
           />
-          <div className="flex flex-col items-center mt-[8vh] lg:mt-[25vh] sm:w-4/5">
+          <div className="flex flex-col items-center justify-center lg:mt-[25vh] sm:w-4/5 h-full sm:mt-16">
             <div>
               <PlayerHand
                 gameID={gameID}

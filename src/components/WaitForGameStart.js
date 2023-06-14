@@ -14,7 +14,7 @@ const WaitForGameStart = (props) => {
           <h2 className="bg-black/70 w-full backdrop-blur-sm text-center py-2">
             Players Joined
           </h2>
-          <div className="flex [&>*:first-child]:ml-0 flex-wrap md:flex-nowrap">
+          <div className="flex [&>*:first-child]:ml-0 flex-wrap sm:flex-nowrap">
             {props.players?.map((name) => (
               <h2 className="py-4 my-1 bg-black/70 w-full ml-1 flex justify-center backdrop-blur-sm">
                 {name}

@@ -28,14 +28,14 @@ const GameMenu = (props) => {
               }`}
             >
               {props?.score && (
-                <div className="flex my-2 items-center">
+                <div className="flex my-2 items-center sm:lex-col">
                   <h2 className="text-xl lg:text-3xl mr-1">Score:</h2>
                   <h1 className="text-xl lg:text-3xl">{props.score}</h1>
                 </div>
               )}
             </div>
           </div>
-          <div className="w-full h-full bg-black bg-opacity-50"></div>
+          <div className="invisible sm:visible w-full h-full bg-black/50"></div>
         </div>
       </>
     );

@@ -23,7 +23,7 @@ const GameResult = (props) => {
           </h1>
           <ResultHand cards={props.yourHand} />
           {props.winner ? (
-            <h2 className="mt-5">Keep it up!</h2>
+            <h2 className="my-5">Keep it up!</h2>
           ) : (
             <div className="mb-4 lg:mb-8">
               <h2 className="my-2 text-center lg:my-5">{props.winningName} had the Winning Hand:</h2>
