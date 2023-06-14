@@ -1,7 +1,6 @@
-import { getDocument } from "../fireBaseFunctions/dataFunctions";
-import { db } from "../components/Firestore";
+import { db } from "../Firestore";
 import { getDoc, doc, setDoc } from "firebase/firestore";
-import { endTurn } from "../fireBaseFunctions/gameFunctions";
+import { endTurn } from "../../fireBaseFunctions/gameFunctions";
 import { CalculateScore } from "./Scoring";
 
 export const shuffle = deck => {

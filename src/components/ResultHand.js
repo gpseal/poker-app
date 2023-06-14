@@ -1,4 +1,4 @@
-import Card from "../cards/Card";
+import Card from "./cards/Card";
 
 const ResultHand = (props) => {
   return (

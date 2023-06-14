@@ -1,6 +1,6 @@
 import { useState, useContext } from "react"
-import { shuffle } from "../cards/cardFunctions"
-import deck from "../cards/deck"
+import { shuffle } from "./cards/cardFunctions"
+import deck from "./cards/deck"
 import UserContext from "../components/UserContext";
 import { createGame, joinGame } from "../fireBaseFunctions/gameFunctions";
 

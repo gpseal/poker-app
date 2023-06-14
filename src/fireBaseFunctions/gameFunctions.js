@@ -1,10 +1,10 @@
 
 import { arrayUnion, doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "../components/Firestore";
-import { getDeck } from "../cards/cardFunctions";
+import { getDeck } from "../components/cards/cardFunctions";
 import { useState } from "react";
 import { getDocument } from "./dataFunctions";
-import { CalculateScore } from "../cards/Scoring";
+import { CalculateScore } from "../components/cards/Scoring";
 
 export const createGame = async (owner, deck, name, gameID) => {
     await setDoc(doc(db, "games", gameID), {
