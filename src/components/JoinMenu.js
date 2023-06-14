@@ -7,6 +7,7 @@ import JoinGameButton from "./JoinGameButton";
 import { joinGame } from "../fireBaseFunctions/gameFunctions";
 import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
+import { listenForCollectionChanges } from "../fireBaseFunctions/dataFunctions";
 
 const JoinGame = (props) => {
   const navigate = useNavigate();
@@ -14,29 +15,29 @@ const JoinGame = (props) => {
   const [isLoading, setIsLoading] = useState();
   const { currentUser } = useContext(UserContext);
 
-  const handleJoinGame = async (gameID) => {
-    console.log("clicked");
-    await joinGame(currentUser, props.userName, gameID);
-    navigate(`/game/${gameID}`);
-  };
+  const collRef = "games"
 
   useEffect(() => {
-    setIsLoading(true);
-    const unsub = onSnapshot(collection(db, "games"), (collection) => {
-      const gameData = [];
-      collection.forEach((game) => {
-        gameData.push({
-          id: game.id,
-          name: game.data().name,
-          players: game.data().players,
-          status: game.data().status,
-        });
-      });
-      setGameData(gameData);
-      setIsLoading(false);
-    });
+    // setIsLoading(true);
+    const unsub = listenForCollectionChanges(collRef, setGameData);
+    // setIsLoading(false);
     return unsub;
+    // const unsub = onSnapshot(collection(db, "games"), (collection) => {
+    //   const gameData = [];
+    //   collection.forEach((game) => {
+    //     gameData.push({
+    //       id: game.id,
+    //       name: game.data().name,
+    //       players: game.data().players,
+    //       status: game.data().status,
+    //     });
+    //   });
+    //   setGameData(gameData);
+    //   setIsLoading(false);
+    // });
   }, []);
+
+  console.log(gameData)
 
   return (
     <>
@@ -48,14 +49,16 @@ const JoinGame = (props) => {
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((data) => (
               <>
-                {data?.status === "waiting" && (
+              {console.log(data.data.name)}
+                {data?.data.status === "waiting" && (
                   <JoinGameButton
                     key={data.id}
-                    name={data.name}
+                    name={data.data.name}
                     id={data.id}
-                    players={data.players}
+                    players={data.data.players}
                     user={currentUser}
                     userName={props.userName}
+                    owner={data.data.owner}
                   />
                 )}
               </>
