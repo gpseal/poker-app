@@ -1,6 +1,7 @@
 
 export const CalculateScore = (cardHand) => {
 
+  
   const sortableHand = cardHand?.map(c => c)
   const sortedHand = sortableHand?.sort((a, b) => {
     return  b.value - a.value
@@ -14,7 +15,7 @@ export const CalculateScore = (cardHand) => {
   const getObjectKey = (obj, value) => {
     return Object.keys(obj).find(key => obj[key] === value)
   }
-
+  
   console.log(findMatchingCards)
   console.log(Object?.values(findMatchingCards))
 
@@ -48,41 +49,42 @@ const addCardValues = (cards) => {
     multiplier /= 100
   }
   return total
-
+  
 }
 
 // creating scorable array, ensuring matching cards are placed at the front for score calculation
 const createScorableArray = (findMatchingCards, start, end) => {
-
+  
   // sorting by adding matching values to front of array
   const sortedMatchingCards = (Object.entries(findMatchingCards).sort((a,b) => b[1]-a[1]))
-
+  
   const scorableHand = []
-
+  
   //extracting vlaues of cards from array
   sortedMatchingCards.forEach(card => {
     scorableHand.push(card[0])
   });
-
+  
   //sorting cards that do not have a matching value
   sortUnmatchingCards(scorableHand, start, end)
   
   return scorableHand
 }
-  
+
 const functions = [];
+const scoreMultiplier = 10000000000
 
 const royalFlush = (sortedHand, findMatchingCards, getObjectKey) => {
   if (
     sortedHand?.filter((card) => card.suit === sortedHand[0].suit)
-      .length === 5 &&
+    .length === 5 &&
     sortedHand[0]?.value - 4 === sortedHand[4]?.value && 
     (Object?.values(findMatchingCards).length === 5) &&
     sortedHand[0]?.value === 14
-  ) {
-    const scorableHand = createScorableArray(findMatchingCards, 0, 4);
-    return {
-      score: 90000000000 + addCardValues(scorableHand),
+    ) {
+      const scorableHand = createScorableArray(findMatchingCards, 0, 4);
+      return {
+      score: (9 * scoreMultiplier) + addCardValues(scorableHand),
       handName: "Royal Flush",
     };
   }
@@ -91,13 +93,13 @@ const royalFlush = (sortedHand, findMatchingCards, getObjectKey) => {
 const straightFlush = (sortedHand, findMatchingCards, getObjectKey) => { 
   if (
     (sortedHand.filter((card) => card.suit === sortedHand[0].suit)
-      .length === 5) &&
+    .length === 5) &&
     (sortedHand[0]?.value - 4 === sortedHand[4]?.value) &&
     (Object?.values(findMatchingCards).length === 5)
-  ) {
+    ) {
     const scorableHand = createScorableArray(findMatchingCards, 0, 4);
     console.log("straight Flush")
-    return {score: 80000000000 + addCardValues(scorableHand),
+    return {score: (8 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Straight Flush"}
   }
 }
@@ -106,9 +108,8 @@ const fourOfAKind = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(4)) {
     const scorableHand = createScorableArray(findMatchingCards, 1, 1);
     console.log(scorableHand);
-    return {score: 70000000000 + addCardValues(scorableHand),
+    return {score: (7 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "4 of a Kind"}
-    // return 7000000 + addCardValues(sortedHand);
   }
 }
 
@@ -116,16 +117,15 @@ const fullHouse = (sortedHand, findMatchingCards, getObjectKey) => {
   if ((Object?.values(findMatchingCards).includes(2)) && (Object?.values(findMatchingCards).includes(3))) {
     const scorableHand = createScorableArray(findMatchingCards, 1, 1);
     console.log(scorableHand);
-    return {score: 60000000000 + addCardValues(scorableHand),
+    return {score: (6 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Full House"}
-    // return 6000000 + addCardValues(sortedHand);
   }
 }
 
 const flush = (sortedHand, findMatchingCards, getObjectKey) => { 
   if (sortedHand.filter(card => card.suit === sortedHand[0].suit).length === 5) {
     const scorableHand = createScorableArray(findMatchingCards, 0, 4);
-    return {score: 50000000000 + addCardValues(scorableHand),
+    return {score: (5 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Flush"}
   }
 }
@@ -133,7 +133,7 @@ const flush = (sortedHand, findMatchingCards, getObjectKey) => {
 const straight = (sortedHand, findMatchingCards, getObjectKey) => { 
   if ((sortedHand[0]?.value - 4) === (sortedHand[4]?.value) && Object?.values(findMatchingCards).length === 5){
     const scorableHand = createScorableArray(findMatchingCards, 0, 4);
-    return {score: 40000000000 + addCardValues(scorableHand),
+    return {score: (4 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Straight"}
   }
 }
@@ -143,7 +143,7 @@ const threeOfKind = (sortedHand, findMatchingCards, getObjectKey) => {
 
     const scorableHand = createScorableArray(findMatchingCards, 1, 2)
     console.log(scorableHand);
-    return {score: 30000000000 + addCardValues(scorableHand),
+    return {score: (3 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "3 of a Kind"}
   }
 }
@@ -153,7 +153,7 @@ const twoPairs = (sortedHand, findMatchingCards, getObjectKey) => {
 
     const scorableHand = createScorableArray(findMatchingCards, 2, 2)
     console.log(scorableHand);
-    return {score: 20000000000 + addCardValues(scorableHand),
+    return {score: (2 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "2 Pair"}
   }
 }
@@ -164,7 +164,7 @@ const pair = (sortedHand, findMatchingCards, getObjectKey) => {
     const scorableHand = createScorableArray(findMatchingCards, 1, 3)
     console.log(scorableHand);
 
-    return {score: 10000000000 + addCardValues(scorableHand),
+    return {score: scoreMultiplier + addCardValues(scorableHand),
             handName: "Pair"}
   }
 }

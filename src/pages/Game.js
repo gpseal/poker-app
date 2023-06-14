@@ -50,8 +50,9 @@ const Game = () => {
     
     return (
       <div
-        className={`bg-gradient-to-t from-cyan-900 from-40% via-cyan-800 via-50% to-sky-950 to-90% h-screen overflow-hidden`}
+        class="Game-Back"
       >
+        
         {gameData?.status === "waiting" && (
           <div data-testid="waitForGameToStart">
             <WaitForGameStart
@@ -78,7 +79,7 @@ const Game = () => {
             turn={gameData?.turn}
             score={userData?.score?.handName}
           />
-          <div className="flex flex-col flex items-center sm:mt-[10vh] lg:mt-[25vh] sm:w-4/5">
+          <div className="flex flex-col items-center mt-[8vh] lg:mt-[25vh] sm:w-4/5">
             <div>
               <PlayerHand
                 gameID={gameID}

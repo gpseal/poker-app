@@ -57,7 +57,7 @@ const PlayerHand = (props) => {
             </div>
           )}
         </div>
-        <div className="flex flex-wrap sm:flex-nowrap">
+        <div className="flex flex-wrap justify-around sm:flex-nowrap">
           {userData?.cards.map((card, index) => (
             <Card
               cardId={index}

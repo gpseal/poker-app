@@ -14,7 +14,7 @@ export const ButtonText = (props) => {
 export const ButtonStandard = (props) => {
     return (
       <button
-        className="p-2 bg-black text-white hover:bg-slate-500 w-40 mx-2"
+        className="p-2 bg-black text-white hover:bg-slate-500 w-40 mx-2 border border-pink-500"
         onClick={props.onClick}
         data-testid="stdButton"
         >

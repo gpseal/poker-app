@@ -37,7 +37,7 @@ const Card = (props) => {
           <img
             onClick={handleCardClick}
             onLoad={cardLoad}
-            className={`z-20 ease-in-out duration-500 rounded-xl cursor-pointer mt-5 sm:mt-0 ${
+            className={`z-20 ease-in-out duration-500 cursor-pointer mt-5 sm:mt-0 ${
               active
                 ? "sm:pt-0 border-8 border-purple-500 sm:border-0"
                 : "sm:pt-10"
@@ -48,8 +48,8 @@ const Card = (props) => {
 
           <img
             onLoad={cardLoad}
-            className={`z-10 ease-in-out blur-sm duration-500 rounded-xl cursor-pointer opacity-10 h-0 sm:h-1/2 ${
-              active ? "sm:pt-20" : "sm:pt-0"
+            className={`z-10 ease-in-out blur-sm duration-500 cursor-pointer opacity-10 h-0 w-full sm:h-3/5 transform -scale-x-100 ${
+              active ? "sm:pt-20 sm:pb-0" : "sm:pt-0 sm:pb-10"
             } ${cardLoaded ? "visible" : "invisible"}`}
             src={props.card.image}
             alt={props.card.card + props.card.suit}

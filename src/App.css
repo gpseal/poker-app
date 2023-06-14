@@ -65,3 +65,14 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+.Game-Back {
+  height: 100vh;
+  background: rgb(72,152,175);
+  background: linear-gradient(0deg, rgb(17, 29, 32), 
+  rgb(52, 86, 97) 15%, 
+  rgb(91, 168, 182) 35%, 
+  rgb(39, 108, 121) 42%, 
+  rgb(41, 98, 107) 55%,
+  rgb(16, 79, 80) 100%);
+}
