@@ -16,8 +16,6 @@ export const CalculateScore = (cardHand) => {
     return Object.keys(obj).find(key => obj[key] === value)
   }
   
-  console.log(findMatchingCards)
-  console.log(Object?.values(findMatchingCards))
 
   for (let index = 0; index < functions.length; index++) {
     const f = functions[index];
@@ -98,7 +96,6 @@ const straightFlush = (sortedHand, findMatchingCards, getObjectKey) => {
     (Object?.values(findMatchingCards).length === 5)
     ) {
     const scorableHand = createScorableArray(findMatchingCards, 0, 4);
-    console.log("straight Flush")
     return {score: (8 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Straight Flush"}
   }
@@ -107,7 +104,6 @@ const straightFlush = (sortedHand, findMatchingCards, getObjectKey) => {
 const fourOfAKind = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(4)) {
     const scorableHand = createScorableArray(findMatchingCards, 1, 1);
-    console.log(scorableHand);
     return {score: (7 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "4 of a Kind"}
   }
@@ -116,7 +112,6 @@ const fourOfAKind = (sortedHand, findMatchingCards, getObjectKey) => {
 const fullHouse = (sortedHand, findMatchingCards, getObjectKey) => { 
   if ((Object?.values(findMatchingCards).includes(2)) && (Object?.values(findMatchingCards).includes(3))) {
     const scorableHand = createScorableArray(findMatchingCards, 1, 1);
-    console.log(scorableHand);
     return {score: (6 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "Full House"}
   }
@@ -142,7 +137,6 @@ const threeOfKind = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(3)) {
 
     const scorableHand = createScorableArray(findMatchingCards, 1, 2)
-    console.log(scorableHand);
     return {score: (3 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "3 of a Kind"}
   }
@@ -152,7 +146,6 @@ const twoPairs = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(2) && Object?.values(findMatchingCards).length === 3) {
 
     const scorableHand = createScorableArray(findMatchingCards, 2, 2)
-    console.log(scorableHand);
     return {score: (2 * scoreMultiplier) + addCardValues(scorableHand),
             handName: "2 Pair"}
   }
@@ -162,7 +155,6 @@ const pair = (sortedHand, findMatchingCards, getObjectKey) => {
   if (Object?.values(findMatchingCards).includes(2)) {
 
     const scorableHand = createScorableArray(findMatchingCards, 1, 3)
-    console.log(scorableHand);
 
     return {score: scoreMultiplier + addCardValues(scorableHand),
             handName: "Pair"}

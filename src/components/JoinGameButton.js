@@ -15,8 +15,6 @@
       await deleteGame(gameID)
     }
 
-    console.log(props)
-
     return (
       <div className="flex bg-black/70 backdrop-blur-sm hover:bg-purple-900 justify-around items-start px-2">
         <button

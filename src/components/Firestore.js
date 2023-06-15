@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const firebaseApp = initializeApp(firebaseConfig);
-const firestore = initializeFirestore(firebaseApp, {localCache: persistentLocalCache({ tabManager: persistentSingleTabManager({}) })});
+const firestore = getFirestore(firebaseApp);
 const auth = getAuth(firebaseApp);
 const db = firestore;
 // enableIndexedDbPersistence(db);

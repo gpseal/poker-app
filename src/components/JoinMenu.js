@@ -37,8 +37,6 @@ const JoinGame = (props) => {
     // });
   }, []);
 
-  console.log(gameData)
-
   return (
     <>
       {gameData && (
@@ -49,7 +47,6 @@ const JoinGame = (props) => {
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((data) => (
               <>
-              {console.log(data.data.name)}
                 {data?.data.status === "waiting" && (
                   <JoinGameButton
                     key={data.id}

@@ -42,6 +42,9 @@ const Game = () => {
       setTurnOver(true);
       setWinner(result);
     }
+    else {
+      setTurnOver(false)
+      setWinner(null);}
     return;
   }, [gameData?.scores]);
 
@@ -75,7 +78,7 @@ const Game = () => {
           winningHand={gameData?.winningHand}
           winningName={gameData?.winningName}
           user={currentUser}
-          gameID={gameData?.winningHand}
+          gameID={gameID}
           numOfPlayers={gameData?.players}
           playersRestarting={gameData?.playersRestarting}
         />

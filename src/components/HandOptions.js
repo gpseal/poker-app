@@ -3,7 +3,6 @@ import { swapCards } from "./cards/cardFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
 
 const HandOptions = (props) => {
-    console.log(props)
     if (props) {
         return (
           <>

@@ -23,8 +23,6 @@ const PlayerHand = (props) => {
     props.turn === userData?.playerNum ? setIsMyTurn(true) : setIsMyTurn(false);
   }, [props.turn, userData?.cards]);
 
-  console.log(props)
-
   return (
     <>
       <div className="pb-10 h-16">

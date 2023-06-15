@@ -17,7 +17,6 @@ export const listenForCollectionChanges = (ref, setData) => {
   const unsub = onSnapshot(collection(db, ref), (collection) => {
     const collectionData = [];
     collection.forEach((item) => {
-      console.log(item.data())
       collectionData.push({
         id: item.id,
         data: item.data()

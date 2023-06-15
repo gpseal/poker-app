@@ -2,10 +2,20 @@ import ResultHand from "./ResultHand";
 import { ButtonStandard } from "./buttons/buttons";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { arrayUnion, doc, getDoc, increment, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  increment,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  deleteField,
+} from "firebase/firestore";
 import { db } from "../components/Firestore";
 import deck from "./cards/deck";
 import { shuffle } from "./cards/cardFunctions";
+import { getDeck } from "./cards/cardFunctions";
 
 
 const GameResult = (props) => {
@@ -18,41 +28,50 @@ const GameResult = (props) => {
 
   const [playAgain, setPlayAgain] = useState(false)
 
-  console.log(playAgain)
-
   const dealAgain = async (gameID, user, playersRestarting, numOfPlayers, deck, shuffle) => {
     setPlayAgain(true)
-
     // sets number of players restarting game, when all have elected to restarts, game will begin
-    await setDoc(doc(db, "games", gameID), {
-      playersRestarting: increment(1)
-    }, { merge: true });
+    await updateDoc(
+      doc(db, "games", gameID),
+      {
+        playersRestarting: increment(1),
+      }
+    );
 
     // first player to restart will deal new deck
-    if (playersRestarting == 1) {
+    if (playersRestarting === 0) {
       shuffle(deck)
       await setDoc(doc(db, "games", gameID), {
         deck: deck || null,
       }, { merge: true });
     }
 
-    const hand = deck?.slice(0, 5)
+    const newDeck = await getDeck(gameID);
+    const hand = newDeck?.slice(0, 5);
+    const deckReduced = newDeck?.slice(5);
+
+    await updateDoc(doc(db, "games", gameID), {
+        deck: deckReduced || null,
+    });
+
     // change player hand for new 5 from new deck
-    await setDoc(doc(db, "games", gameID, "players", user), {
+    await updateDoc(doc(db, "games", gameID, "players", user), {
       cards: hand,
-    }, { merge: true });
+      score: deleteField(),
+    });
 
     // after final player has elected to replay and have their cards, the game will resume
-    // if (playersRestarting === numOfPlayers) {
-    //   await setDoc(doc(db, "games", gameID), {
-    //     turn: 1,
-    //     status: "playing",
-    //     scores: [],
-    //     winningName: "",
-    //     playersRestarting: 0,
-    //     winningHand: [],
-    //   });
-    // }
+    if (playersRestarting === numOfPlayers - 1) {
+      await updateDoc(doc(db, "games", gameID), {
+        turn: 1,
+        status: "playing",
+        scores: [],
+        winningName: "",
+        playersRestarting: 0,
+        winningHand: [],
+      }, { merge: true });
+      setPlayAgain(false);
+    }
   }
 
   return (
@@ -73,7 +92,7 @@ const GameResult = (props) => {
               <h2 className="my-2 text-center lg:my-5">{props.winningName} had the Winning Hand:</h2>
               <ResultHand cards={props.winningHand} />
             </div>
-          )} </> : <h1>Waiting for Players</h1>}
+          )} </> : <h1 className="text-center mb-3">Waiting for Players</h1>}
           <div>
             <ButtonStandard text={"exit"} onClick={exitGame}/>
             {!playAgain && <ButtonStandard text={"Deal again"} onClick={() => dealAgain(props.gameID, props.user, props.playersRestarting, props.numOfPlayers, deck, shuffle)}/>}

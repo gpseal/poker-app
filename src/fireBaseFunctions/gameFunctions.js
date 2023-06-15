@@ -74,9 +74,6 @@ export const sendScore = async (gameID, score) => {
 }
 
 export const findWinner = async (score, gameScores) => {
-  console.log(score)
-  console.log(gameScores)
-  console.log(Math.max(gameScores));
   if (score === Math.max(gameScores)) {
     return "Congratulations, you won!"
   }
@@ -84,7 +81,6 @@ export const findWinner = async (score, gameScores) => {
 }
 
 export const beginGame = async (gameID) => {
-  console.log(gameID)
     await updateDoc(doc(db, "games", gameID), {
       status: "playing",
     });
@@ -99,17 +95,21 @@ export const checkWinner =  (gameData, userData) => {
   }
 };
 
+// send the winners hand to game document to display to losers
 export const sendWinningHand = async (gameID, cards, winningHand, name) => {
-  console.log(name)
-    if (!winningHand) {
+    // if (!winningHand) {
       await updateDoc(doc(db, "games", gameID), {
         winningHand: cards,
         winningName: name,
       });
-    }
+    // }
 }
 
 export const deleteGame = async (gameID) => {
   await deleteDoc(doc(db, "games", gameID))
 }
+
+// export const restartGame = async (gameID) => {
+//   await 
+// }
 
