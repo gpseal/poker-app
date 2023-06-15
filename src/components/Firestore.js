@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { initializeApp, } from "firebase/app";
+import { getFirestore, collection, getDocs, enableIndexedDbPersistence, initializeFirestore, persistentLocalCache, persistentSingleTabManager  } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -18,9 +18,9 @@ const firebaseConfig = {
 // Initialize Firebase
 
 const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebaseApp);
+const firestore = initializeFirestore(firebaseApp, {localCache: persistentLocalCache({ tabManager: persistentSingleTabManager({}) })});
 const auth = getAuth(firebaseApp);
 const db = firestore;
-
+// enableIndexedDbPersistence(db);
 
 export {firestore, auth, db};

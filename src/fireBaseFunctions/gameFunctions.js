@@ -1,5 +1,5 @@
 
-import { arrayUnion, doc, getDoc, increment, setDoc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, getDoc, increment, setDoc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../components/Firestore";
 import { getDeck } from "../components/cards/cardFunctions";
 import { useState } from "react";
@@ -18,6 +18,7 @@ export const createGame = async (owner, deck, name, gameID) => {
       player_names: [],
       scores: [],
       winningName: "",
+      playersRestarting: 0,
     });
     return
   };
@@ -106,5 +107,9 @@ export const sendWinningHand = async (gameID, cards, winningHand, name) => {
         winningName: name,
       });
     }
+}
+
+export const deleteGame = async (gameID) => {
+  await deleteDoc(doc(db, "games", gameID))
 }
 

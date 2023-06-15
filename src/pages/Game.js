@@ -74,6 +74,10 @@ const Game = () => {
           yourHand={userData?.cards}
           winningHand={gameData?.winningHand}
           winningName={gameData?.winningName}
+          user={currentUser}
+          gameID={gameData?.winningHand}
+          numOfPlayers={gameData?.players}
+          playersRestarting={gameData?.playersRestarting}
         />
       )}
       <div className="flex flex-col sm:flex-row w-full h-full">
