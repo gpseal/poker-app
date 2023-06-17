@@ -10,14 +10,12 @@ const LoginForm = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setIsLoading } = useContext(UserContext);
+  const [errorMsg, setErrorMsg] = useState();
   // const { setIsAuthenticated } = useContext(UserContext);
 
   const handleLogin = async (e) => {
-    setIsLoading(true)
     e.preventDefault();
-    await loginUser(email, password, setCurrentUser)
-    // setIsAuthenticated(true)
-    setIsLoading(false)
+    await loginUser(email, password, setCurrentUser, setErrorMsg);
     };
 
   return (
@@ -45,6 +43,7 @@ const LoginForm = (props) => {
           placeholder="Password"
           value={password}
         />
+        <div className="text-white mb-5">{errorMsg}</div>
         <ButtonForm id={"sign-in"} text={"Sign In"} />
       </form>
     </div>

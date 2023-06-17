@@ -29,8 +29,8 @@ const CreateGameModal = ( props ) => {
     return (
       <>
         {props.modalVisible && (
-          <div className="w-full bg-black/70 z-20 flex-col flex items-center justify-center backdrop-blur-sm">
-            <div className="px-20 flex-col flex items-center justify-center shadow-lg">
+          <div className="pt-3 bg-black/70 z-20 flex-col flex items-center justify-center backdrop-blur-md">
+            <div className="flex-col flex items-center justify-center shadow-lg">
               <form
                 className="flex items-center flex-col pb-3"
                 onSubmit={prepAndStart}
@@ -50,13 +50,13 @@ const CreateGameModal = ( props ) => {
                     data-testid="CreateButton"
                     id="create-game"
                     type="subimt"
-                    className="p-2 w-20 mt-2 bg-button text-white hover:bg-button-h border border-black hover:border-white"
+                    className="p-2 w-20 mt-2 bg-button text-white hover:bg-button-h border border-pink-500 hover:border-white"
                   >
                     Create
                   </button>
                   <button
                     id="cancel-game"
-                    className="p-2 w-20 mt-5 ml-5 bg-button text-white hover:bg-button-h border border-black hover:border-white"
+                    className="p-2 w-20 mt-5 ml-5 bg-button text-white hover:bg-button-h border border-pink-500 hover:border-white"
                     onClick={() => props.setModalVisible(false)}
                   >
                     Cancel

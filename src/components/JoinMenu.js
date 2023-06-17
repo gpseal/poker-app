@@ -29,7 +29,7 @@ const JoinGame = (props) => {
     <>
       {gameData && (
         <div className="w-full sm:ml-1">
-          <h2 className="flex items-center justify-center w-full my-1 sm:mt-0 h-16 bg-black/70 backdrop-blur-sm">
+          <h2 className="flex items-center justify-center w-full my-1 sm:mt-0 lg:mt-1 py-2 bg-black/70 backdrop-blur-md">
             Join A Game
           </h2>
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">

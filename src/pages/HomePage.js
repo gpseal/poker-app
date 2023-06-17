@@ -25,13 +25,13 @@ const HomePage = () => {
       {isLoading ? (
         <Loading />
       ) : (
-        <div className="bg-main-back bg-center bg-cover flex justify-center w-screen h-screen">
+        <div className="bg-main-back bg-top bg-cover flex justify-center w-screen h-screen">
           <div className="w-11/12 lg:w-2/5">
             <h1>POKER 2000</h1>
-            <div className="sm:flex">
-              <div className="sm:flex sm:bg-red-500 sm:flex-col sm:w-7/12">
+            <div className="sm:flex lg:inline">
+              <div className="sm:flex sm:flex-col sm:w-7/12 lg:w-full">
                 <div className="flex sm:flex-col sm:w-full">
-                  <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-sm flex justify-center sm:mb-1">
+                  <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-md flex justify-center sm:mb-1">
                     <h2>Hi {userProfile?.data().name}</h2>
                   </div>
                   <LogOut />

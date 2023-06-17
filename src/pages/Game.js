@@ -58,53 +58,57 @@ const Game = () => {
   }
 
   return (
-    <div class="Game-Back">
-      {gameData?.status === "waiting" && (
-        <div data-testid="waitForGameToStart">
-          <WaitForGameStart
-            gameName={gameData?.name}
-            owner={gameData?.owner}
-            user={currentUser}
-            players={gameData?.player_names}
-            gameID={gameID}
-            key={gameID}
-            userName={userData?.name}
-          />
-        </div>
-      )}
-      {gameData?.turn > gameData?.players && (
-        <GameResult
-          winner={winner}
-          yourHand={userData?.cards}
-          winningHand={gameData?.winningHand}
-          winningName={gameData?.winningName}
-          user={currentUser}
-          gameID={gameID}
-          numOfPlayers={gameData?.players}
-          playersRestarting={gameData?.playersRestarting}
-          userName={userData?.name}
-        />
-      )}
-      <div className="flex flex-col sm:flex-row w-full h-full">
-        <GameMenu
-          players={gameData?.player_names}
-          turn={gameData?.turn}
-          score={userData?.score?.handName}
-        />
-        <div className="flex flex-col items-center justify-center lg:mt-[25vh] sm:w-4/5 h-full sm:mt-16">
-          <div>
-            <PlayerHand
+    <>
+      {gameData && (
+        <div class="Game-Back">
+          {gameData?.status === "waiting" && (
+            <div data-testid="waitForGameToStart">
+              <WaitForGameStart
+                gameName={gameData?.name}
+                owner={gameData?.owner}
+                user={currentUser}
+                players={gameData?.player_names}
+                gameID={gameID}
+                key={gameID}
+                userName={userData?.name}
+              />
+            </div>
+          )}
+          {gameData?.turn > gameData?.players && (
+            <GameResult
+              winner={winner}
+              yourHand={userData?.cards}
+              winningHand={gameData?.winningHand}
+              winningName={gameData?.winningName}
+              user={currentUser}
               gameID={gameID}
-              currentUser={currentUser}
-              turn={gameData?.turn}
-              players={gameData?.players}
-              turnOver={turnOver}
-              userData={userData}
+              numOfPlayers={gameData?.players}
+              playersRestarting={gameData?.playersRestarting}
+              userName={userData?.name}
             />
+          )}
+          <div className="flex flex-col sm:flex-row w-full h-full">
+            <GameMenu
+              players={gameData?.player_names}
+              turn={gameData?.turn}
+              score={userData?.score?.handName}
+            />
+            <div className="flex flex-col items-center justify-center lg:mt-[25vh] sm:w-4/5 h-full sm:mt-16">
+              <div>
+                <PlayerHand
+                  gameID={gameID}
+                  currentUser={currentUser}
+                  turn={gameData?.turn}
+                  players={gameData?.players}
+                  turnOver={turnOver}
+                  userData={userData}
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

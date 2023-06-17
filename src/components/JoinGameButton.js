@@ -16,7 +16,7 @@
     }
 
     return (
-      <div className="flex bg-black/70 backdrop-blur-sm hover:bg-purple-900 justify-around items-start px-2">
+      <div className="flex py-1 bg-black/70 backdrop-blur-md hover:bg-black justify-around items-start px-2">
         <button
           className="flex flex-col items-center justify-center w-full"
           onClick={() => handleJoinGame(props.id)}

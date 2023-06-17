@@ -13,20 +13,28 @@ export const registerUser = async (
   email,
   password,
   userName,
-  setCurrentUser
+  setCurrentUser,
+  setErrorMsg
 ) => {
-  const user = await createUserWithEmailAndPassword(auth, email, password);
-  console.log("here")
-  console.log(user.user.uid)
-  setCurrentUser(user.user.uid);
-  await setDoc(doc(db, "users", user.user.uid), {
-    name: userName,
-  });
-  return
+  try {
+    const user = await createUserWithEmailAndPassword(auth, email, password);
+    setCurrentUser(user.user.uid);
+    await setDoc(doc(db, "users", user.user.uid), {
+      name: userName,
+    });
+  } catch (error) {
+    setErrorMsg(error.code.split("/")[1].replaceAll("-", " "));
+  }
+  return;
 };
 
-export const loginUser = async (email, password, setCurrentUser, setLoading) => {
-  const user = await signInWithEmailAndPassword(auth, email, password);
-  setCurrentUser(user.user.uid);
-  return
+export const loginUser = async (email, password, setCurrentUser, setErrorMsg) => {
+  try {
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    setCurrentUser(user.user.uid);
+  } catch (error) {
+    console.log(error.code);
+    setErrorMsg(error.code.split("/")[1].replaceAll("-", " "));
+  }
+  return;
 };

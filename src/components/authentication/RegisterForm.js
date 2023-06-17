@@ -9,7 +9,8 @@ import {
 } from "../../fireBaseFunctions/registrationFunctions";
 
 const RegisterForm = (props) => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser } = useContext(UserContext)
+  const [errorMsg, setErrorMsg] = useState();
 
   const { show } = props;
   const { setShow } = props;
@@ -24,11 +25,10 @@ const RegisterForm = (props) => {
   };
 
   const handleRegistration = async (e) => {
-    setIsLoading(true)
+    // setIsLoading(true)
     e.preventDefault();
-    console.log("object")
-    await registerUser(email, password, userName, setCurrentUser);
-    setIsLoading(false)
+    await registerUser(email, password, userName, setCurrentUser, setErrorMsg);
+    // setIsLoading(false)
   };
 
   return (
@@ -43,6 +43,7 @@ const RegisterForm = (props) => {
               <p>User Name</p>
               <input
                 className="border"
+                maxLength={10}
                 type="text"
                 id="userName"
                 name="userName"
@@ -62,8 +63,8 @@ const RegisterForm = (props) => {
               />
               <p className="mt-3">Password</p>
               <input
-                className="border"
-                type="text"
+                className="border mb-3"
+                type="password"
                 id="password"
                 name="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -71,9 +72,10 @@ const RegisterForm = (props) => {
                 value={password}
               />
               <ButtonForm id={"register"} text={"Register"} />
+              <div className="mt-2">{errorMsg}</div>
             </form>
           </div>
-          <button className="mt-3" onClick={closeRegistration}>
+          <button className="mt-3 text-white" onClick={closeRegistration}>
             Close
           </button>
         </div>

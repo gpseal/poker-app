@@ -1,7 +1,7 @@
 import ResultHand from "./ResultHand";
 import { ButtonStandard } from "./buttons/buttons";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import deck from "./cards/deck";
 import { dealAgain, leaveGame } from "../fireBaseFunctions/gameFunctions";
 
@@ -11,7 +11,7 @@ const GameResult = (props) => {
 
   const [playAgainSetup, setPlayAgainSetup] = useState(false)
 
-
+    useEffect(() => {}, [props?.numOfPlayers]);
 
   return (
     <div
@@ -20,7 +20,7 @@ const GameResult = (props) => {
       } bg-cover flex flex-col justify-center items-center bg-center`}
     >
       <div className="bg-black/70 flex flex-col justify-center items-center py-1 px-2 sm:px-10 backdrop-blur-sm border border-pink-500 pb-4 lg:py-8">
-        {!playAgainSetup ? (
+        {!playAgainSetup && props?.numOfPlayers > 1 ? (
           <>
             <h1 className="mb-3 lg:mb-8">
               {props.winner ? "You're a Winner!" : "You Lost, Looser"}
@@ -56,7 +56,7 @@ const GameResult = (props) => {
               )
             }
           />
-          {!playAgainSetup && (
+          {!playAgainSetup && props?.numOfPlayers > 1 && (
             <ButtonStandard
               text={"Deal again"}
               onClick={() =>
