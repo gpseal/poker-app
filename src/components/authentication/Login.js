@@ -25,7 +25,7 @@ const Login = () => {
               <div className="w-screen h-screen flex justify-center items-center relative flex-col">
                 <LoginForm />
                 <div className="flex mt-5">
-                  <p className="mr-3">Don't have an account? </p>
+                  <p className="mr-3 text-white">Don't have an account? </p>
                   <ButtonText text="Register" onClick={handleClick} />
                 </div>
                 <RegisterForm

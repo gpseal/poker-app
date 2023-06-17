@@ -22,46 +22,34 @@ const JoinGame = (props) => {
     const unsub = listenForCollectionChanges(collRef, setGameData);
     // setIsLoading(false);
     return unsub;
-    // const unsub = onSnapshot(collection(db, "games"), (collection) => {
-    //   const gameData = [];
-    //   collection.forEach((game) => {
-    //     gameData.push({
-    //       id: game.id,
-    //       name: game.data().name,
-    //       players: game.data().players,
-    //       status: game.data().status,
-    //     });
-    //   });
-    //   setGameData(gameData);
-    //   setIsLoading(false);
-    // });
+
   }, []);
 
   return (
     <>
       {gameData && (
-        <>
-          <h2 className="flex items-center justify-center w-full my-1 h-16 bg-black/70 backdrop-blur-sm">
+        <div className="w-full sm:ml-1">
+          <h2 className="flex items-center justify-center w-full my-1 sm:mt-0 h-16 bg-black/70 backdrop-blur-sm">
             Join A Game
           </h2>
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
-            {gameData.map((data) => (
+            {gameData.map((game) => (
               <>
-                {data?.data.status === "waiting" && (
+                {(game?.data.status === "waiting" && game?.data.players < 5) && (
                   <JoinGameButton
-                    key={data.id}
-                    name={data.data.name}
-                    id={data.id}
-                    players={data.data.players}
+                    key={game.id}
+                    name={game.data.name}
+                    id={game.id}
+                    players={game.data.players}
                     user={currentUser}
                     userName={props.userName}
-                    owner={data.data.owner}
+                    owner={game.data.owner}
                   />
                 )}
               </>
             ))}
           </div>
-        </>
+        </div>
       )}
     </>
   );

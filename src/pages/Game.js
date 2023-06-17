@@ -68,6 +68,7 @@ const Game = () => {
             players={gameData?.player_names}
             gameID={gameID}
             key={gameID}
+            userName={userData?.name}
           />
         </div>
       )}
@@ -81,6 +82,7 @@ const Game = () => {
           gameID={gameID}
           numOfPlayers={gameData?.players}
           playersRestarting={gameData?.playersRestarting}
+          userName={userData?.name}
         />
       )}
       <div className="flex flex-col sm:flex-row w-full h-full">

@@ -23,6 +23,7 @@ const LoginForm = (props) => {
   return (
     <div>
       <h1 className="text-center">Welcome</h1>
+      <h2 className="text-center">Please Login</h2>
       <form className="flex-col flex items-center" onSubmit={handleLogin}>
         <p className="mt-3 text-slate-400">Email</p>
         <input
@@ -36,8 +37,8 @@ const LoginForm = (props) => {
         />
         <p className="mt-3 text-slate-400">Password</p>
         <input
-          className="border"
-          type="text"
+          className="border mb-5"
+          type="password"
           id="password"
           name="password"
           onChange={(e) => setPassword(e.target.value)}

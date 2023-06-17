@@ -26,16 +26,20 @@ const HomePage = () => {
         <Loading />
       ) : (
         <div className="bg-main-back bg-center bg-cover flex justify-center w-screen h-screen">
-          <div className="w-11/12 sm:w-3/5 md:w-2/5">
+          <div className="w-11/12 lg:w-2/5">
             <h1>POKER 2000</h1>
-            <div className="bg-black bg-opacity-70 py-5 w-full backdrop-blur-sm">
-              <div className="flex justify-center">
-                <h2>Welcome {userProfile?.data().name}</h2>
+            <div className="sm:flex">
+              <div className="sm:flex sm:bg-red-500 sm:flex-col sm:w-7/12">
+                <div className="flex sm:flex-col sm:w-full">
+                  <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-sm flex justify-center sm:mb-1">
+                    <h2>Hi {userProfile?.data().name}</h2>
+                  </div>
+                  <LogOut />
+                </div>
+                <CreateGame userName={userProfile?.data().name} />
               </div>
+              <JoinGame userName={userProfile?.data().name} />
             </div>
-            <CreateGame userName={userProfile?.data().name} />
-            <JoinGame userName={userProfile?.data().name} />
-            <LogOut />
           </div>
         </div>
       )}
