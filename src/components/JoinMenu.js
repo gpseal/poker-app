@@ -1,7 +1,7 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "./Firestore";
 import { useState, useEffect, useContext } from "react";
-import Loading from "./Loading";
+import { InlineLoading } from "./Loading";
 import { Link } from "react-router-dom";
 import JoinGameButton from "./JoinGameButton";
 import { joinGame } from "../fireBaseFunctions/gameFunctions";
@@ -15,27 +15,28 @@ const JoinGame = (props) => {
   const [isLoading, setIsLoading] = useState();
   const { currentUser } = useContext(UserContext);
 
-  const collRef = "games"
+  const collRef = "games";
 
   useEffect(() => {
     // setIsLoading(true);
     const unsub = listenForCollectionChanges(collRef, setGameData);
     // setIsLoading(false);
     return unsub;
-
   }, []);
 
   return (
     <>
-      {gameData && (
-        <div className="w-full sm:ml-1">
-          <h2 className="flex items-center justify-center w-full my-1 sm:mt-0 lg:mt-1 py-2 bg-black/70 backdrop-blur-md">
-            Join A Game
-          </h2>
+      <div className="w-full sm:ml-1">
+        <h2 className="flex items-center justify-center w-full my-1 sm:mt-0 lg:mt-1 py-2 bg-black/70 backdrop-blur-md">
+          Join A Game
+        </h2>
+        {!gameData ? (
+          <InlineLoading />
+        ) : (
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((game) => (
               <>
-                {(game?.data.status === "waiting" && game?.data.players < 5) && (
+                {game?.data.status === "waiting" && game?.data.players < 5 && (
                   <JoinGameButton
                     key={game.id}
                     name={game.data.name}
@@ -49,8 +50,8 @@ const JoinGame = (props) => {
               </>
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </>
   );
 };

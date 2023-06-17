@@ -3,7 +3,7 @@ import Login from './components/authentication/Login';
 import UserContext from './components/UserContext';
 import { useContext, useEffect } from 'react';
 import HomePage from './pages/HomePage';
-import Loading from './components/Loading';
+import { ScreenLoading } from "./components/Loading";
 import { Routes, Route } from "react-router-dom";
 import Game from './pages/Game';
 
@@ -17,7 +17,7 @@ function App() {
   return (
     <div className="bg-back min-h-screen">
       {isLoading ? (
-        <Loading />
+        <ScreenLoading />
       ) : (
         <div>
           {!currentUser ? (

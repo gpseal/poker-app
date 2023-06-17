@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { onSnapshot, collection, doc } from "firebase/firestore";
-import { db } from "../components/Firestore";
 import UserContext from "../components/UserContext";
 import PlayerHand from "../components/PlayerHand";
 import GameMenu from "../components/GameMenu";
@@ -10,9 +8,9 @@ import {
   checkWinner,
   sendWinningHand,
 } from "../fireBaseFunctions/gameFunctions";
-import ResultHand from "../components/ResultHand";
 import GameResult from "../components/GameResult";
 import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
+import { ScreenLoading } from "../components/Loading";
 
 const Game = () => {
   const { currentUser } = useContext(UserContext);
@@ -59,7 +57,7 @@ const Game = () => {
 
   return (
     <>
-      {gameData && (
+      {!gameData && <ScreenLoading />}
         <div class="Game-Back">
           {gameData?.status === "waiting" && (
             <div data-testid="waitForGameToStart">
@@ -107,7 +105,6 @@ const Game = () => {
             </div>
           </div>
         </div>
-      )}
     </>
   );
 };

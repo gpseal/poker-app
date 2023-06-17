@@ -7,7 +7,7 @@ import { db } from "../components/Firestore";
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
 import CreateGame from "../components/CreateGame";
 import JoinGame from "../components/JoinMenu";
-import Loading from "../components/Loading";
+import { ScreenLoading } from "../components/Loading";
 
 const HomePage = () => {
   const { currentUser, setCurrentUser, isLoading } = useContext(UserContext);
@@ -22,16 +22,16 @@ const HomePage = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loading />
+      {!userProfile ? (
+        <ScreenLoading />
       ) : (
         <div className="bg-main-back bg-top bg-cover flex justify-center w-screen h-screen">
           <div className="w-11/12 lg:w-2/5">
             <h1>POKER 2000</h1>
             <div className="sm:flex lg:inline">
               <div className="sm:flex sm:flex-col sm:w-7/12 lg:w-full">
-                <div className="flex sm:flex-col sm:w-full">
-                  <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-md flex justify-center sm:mb-1">
+                <div className="flex sm:flex-col sm:w-full lg:flex-row">
+                  <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-md flex justify-center sm:mb-1 lg:mb-0">
                     <h2>Hi {userProfile?.data().name}</h2>
                   </div>
                   <LogOut />
