@@ -1,7 +1,7 @@
 import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "./Firestore";
 import { useState, useEffect, useContext } from "react";
-import { InlineLoading } from "./Loading";
+import { InlineLoading } from "./misc/Loading";
 import { Link } from "react-router-dom";
 import JoinGameButton from "./JoinGameButton";
 import { joinGame } from "../fireBaseFunctions/gameFunctions";
@@ -35,10 +35,10 @@ const JoinGame = (props) => {
         ) : (
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
             {gameData.map((game) => (
-              <>
+              <div key={game.id}>
                 {game?.data.status === "waiting" && game?.data.players < 5 && (
                   <JoinGameButton
-                    key={game.id}
+                    // key={game.id}
                     name={game.data.name}
                     id={game.id}
                     players={game.data.players}
@@ -47,7 +47,7 @@ const JoinGame = (props) => {
                     owner={game.data.owner}
                   />
                 )}
-              </>
+              </div>
             ))}
           </div>
         )}

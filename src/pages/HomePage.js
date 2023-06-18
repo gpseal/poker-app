@@ -7,7 +7,7 @@ import { db } from "../components/Firestore";
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
 import CreateGame from "../components/CreateGame";
 import JoinGame from "../components/JoinMenu";
-import { ScreenLoading } from "../components/Loading";
+import { ScreenLoading } from "../components/misc/Loading";
 
 const HomePage = () => {
   const { currentUser, setCurrentUser, isLoading } = useContext(UserContext);

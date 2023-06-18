@@ -1,18 +1,14 @@
-import './App.css';
-import Login from './components/authentication/Login';
-import UserContext from './components/UserContext';
-import { useContext, useEffect } from 'react';
-import HomePage from './pages/HomePage';
-import { ScreenLoading } from "./components/Loading";
+import "./App.css";
+import Login from "./components/authentication/Login";
+import UserContext from "./components/UserContext";
+import { useContext, useEffect } from "react";
+import HomePage from "./pages/HomePage";
+import { ScreenLoading } from "./components/misc/Loading";
 import { Routes, Route } from "react-router-dom";
-import Game from './pages/Game';
+import Game from "./pages/Game";
 
 function App() {
-  // const { currentUser } = useContext(UserContext)
-  // const { isLoading } = useContext(UserContext);
   const { isAuthenticated, isLoading, currentUser } = useContext(UserContext);
-  
-  console.log(isAuthenticated);
 
   return (
     <div className="bg-back min-h-screen">

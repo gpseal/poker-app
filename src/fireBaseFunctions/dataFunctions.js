@@ -2,39 +2,39 @@ import { collection, doc, getDoc, setDoc, addDoc, onSnapshot, query } from "fire
 import { db } from "../components/Firestore";
 
 export const getDocument = async (docRef) => {
-  const docSnap = await getDoc(docRef);
-  return docSnap;
+  try {
+    const docSnap = await getDoc(docRef);
+    return docSnap;
+  } catch (error) {
+    alert(error)
+  }
 };
 
 export const listenForChanges = (ref, setData) => {
-  const unsub = onSnapshot(doc(db, ref), (doc) => {
-      setData(doc.data());
-  });
-  return unsub;
+  try {
+    const unsub = onSnapshot(doc(db, ref), (doc) => {
+        setData(doc.data());
+    });
+    return unsub;
+  } catch (error) {
+    alert(error)
+  }
 }
 
 export const listenForCollectionChanges = (ref, setData) => {
-  const unsub = onSnapshot(collection(db, ref), (collection) => {
-    const collectionData = [];
-    collection.forEach((item) => {
-      collectionData.push({
-        id: item.id,
-        data: item.data()
-      })
-    })
-    setData(collectionData);
-  });
-  return unsub;
+  try {
+    const unsub = onSnapshot(collection(db, ref), (collection) => {
+      const collectionData = [];
+      collection.forEach((item) => {
+        collectionData.push({
+          id: item.id,
+          data: item.data(),
+        });
+      });
+      setData(collectionData);
+    });
+    return unsub;
+  } catch (error) {
+    alert(error);
+  }
 };
-
-
-// const unsub = onSnapshot(collection(db, "games"), (collection) => {
-//       const gameData = [];
-//       collection.forEach((game) => {
-//         gameData.push({
-//           id: game.id,
-//           name: game.data().name,
-//           players: game.data().players,
-//           status: game.data().status,
-//         });
-//       });

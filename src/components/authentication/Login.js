@@ -3,7 +3,7 @@ import RegisterForm from "./RegisterForm";
 import { useState, useContext, useEffect } from "react";
 import UserContext from "../UserContext";
 import { ButtonText } from "../buttons/buttons";
-import {ScreenLoading} from "../Loading";
+import { ScreenLoading } from "../misc/Loading";
 
 const Login = () => {
   const [showRegistration, setShowRegistration] = useState(false);

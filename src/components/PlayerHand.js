@@ -5,7 +5,7 @@ import Card from "./cards/Card";
 import { ButtonStandard } from "./buttons/buttons";
 import { swapCards } from "./cards/cardFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
-import { CalculateScore } from "./cards/Scoring";
+import { CalculateScore } from "./Scoring";
 import HandOptions from "./HandOptions";
 
 const PlayerHand = (props) => {
