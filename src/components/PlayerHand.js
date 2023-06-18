@@ -20,8 +20,12 @@ const PlayerHand = (props) => {
   }, [props?.userData]);
 
   useEffect(() => {
-    props.turn === userData?.playerNum ? setIsMyTurn(true) : setIsMyTurn(false);
-  }, [props.turn, userData?.cards]);
+    if (props.turn) {
+      props?.playerIDs[props?.turn - 1] === props.currentUser
+        ? setIsMyTurn(true)
+        : setIsMyTurn(false);
+    }
+  }, [props?.turn, userData?.cards]);
 
   return (
     <>

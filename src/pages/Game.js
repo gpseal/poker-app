@@ -55,6 +55,8 @@ const Game = () => {
     );
   }
 
+  // console.log(gameData?.current_players);
+
   return (
     <>
       {!gameData && <ScreenLoading />}
@@ -98,6 +100,7 @@ const Game = () => {
                 currentUser={currentUser}
                 turn={gameData?.turn}
                 players={gameData?.players}
+                playerIDs={gameData?.current_players}
                 turnOver={turnOver}
                 userData={userData}
               />
