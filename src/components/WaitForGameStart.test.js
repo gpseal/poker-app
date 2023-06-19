@@ -1,11 +1,10 @@
 import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
+import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { fireEvent, screen } from "@testing-library/react";
-// import UserContext from "../components/UserContext";
-import { ButtonStandard, ButtonText, ButtonForm } from "./buttons";
-import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
 import WaitForGameStart from "./WaitForGameStart";
+import { mockContext, mockRouter } from "./TestingFunctions";
+import { beginGame, leaveGame } from "../fireBaseFunctions/gameFunctions";
 
 let container = null;
 beforeEach(() => {
@@ -21,39 +20,46 @@ afterEach(() => {
   container = null;
 });
 
+jest.mock("../firebaseFunctions/gameFunctions", () => ({
+  beginGame: jest.fn(),
+  leaveGame: jest.fn()
+}));
 
-jest.mock(listenForChanges, (collectionName, callback) => {
-    callback([
-      { gameID: 1, gameName: "Gregs Game", owner: 12345, user: 12345, players: ["mark", "Roger"]},
-    ]);
-});
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => jest.fn(),
+}));
+// mockRouter();
 
-it("displays text on standard button & calls function when clicked", () => {
-  // eslint-disable-next-line testing-library/no-unnecessary-act
+const user = { currentUser: "123" };
+let mockPlayers = ["greg", "mark"]
+
+it("displays waiting room and allows game to begin", () => {
+
   act(() => {
-    const gameData = listenForChanges;
-    const gameID = 123
-    render(
-      <WaitForGameStart
-        gameName={gameData?.name}
-        owner={gameData?.owner}
-        user={"currentUser"}
-        players={gameData?.player_names}
-        gameID={gameID}
-      />,
+    mockContext(user, <WaitForGameStart
+      gameName={"game1"}
+      owner={"123"}
+      user={user.currentUser}
+      players={mockPlayers}
+      gameID={"9876"}/>,
       container
     );
   });
 
-  console.log(container)
+  const beginButton = screen.getByText("Begin Game");
+  const exitButton = screen.getByText("exit");
 
-  // eslint-disable-next-line testing-library/no-node-access
-//   const button = document.querySelector("[data-testid=stdButton]");
-
-//   act(() => {
-//     button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-//   });
-
-//   expect(mockedButtonFunction).toHaveBeenCalledTimes(1);
-//   expect(button.innerHTML).toBe("Press Me");
+  expect(screen.getByText("game1 Waiting Room")).toBeInTheDocument()
+  expect(screen.getByTestId("mark-waiting")).toBeInTheDocument()
+  expect(screen.getByTestId("greg-waiting")).toBeInTheDocument()
+  expect(beginButton).toBeInTheDocument()
+  expect(exitButton).toBeInTheDocument()
+  
+  fireEvent.click(beginButton)
+  expect(beginGame).toHaveBeenCalledTimes(1);
+  
+  fireEvent.click(exitButton)
+  expect(leaveGame).toHaveBeenCalledTimes(1);
 });
+

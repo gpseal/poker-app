@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import Game from "./Game";
 import UserContext from "../components/UserContext";
+import { screen } from "@testing-library/react";
 import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
 
@@ -20,6 +21,16 @@ afterEach(() => {
   container = null;
 });
 
+
+// https://stackoverflow.com/questions/66284286/react-jest-mock-usenavigate
+const mockedNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"),
+  useNavigate: () => mockedNavigate,
+}));
+
+// https://stackoverflow.com/questions/54292298/jest-mock-react-context
 const mockContext = (user, component) => {
   return render(
     <UserContext.Provider value={user}>{component}</UserContext.Provider>,
@@ -31,43 +42,18 @@ jest.mock("../firebaseFunctions/gameFunctions", () => ({
   endTurn: jest.fn(),
 }));
 
-
-// jest.mock("../fireBaseFunctions/dataFunctions", () => {
-//   return {
-//     listenForChanges: (collectionName, callback) => {
-//       if (collectionName == 'games/undefined'){
-//         callback({gameID: 1, name: "game1", players: 2, status: "waiting"})
-//       } else if (collectionName == 'games/undefined/players/undefined') {
-//         callback({name: "mark", score: {handName: "pair"}})
-//       }
-//     }
-//   }
-// })
-
-// it("displays game information in waiting room", () => {
-
-//   const user = { currentUser: "123" };
-//   // eslint-disable-next-line testing-library/no-unnecessary-act
-//   act(() => {
-//       mockContext(user, <Game />);
-//   });
-
-//   expect(container.querySelector("waitForGameToStart")).toBeInTheDocument()
-//   expect(container.querySelectorAll("button")[1].textContent).toBe("Begin Game")
-
-//   // eslint-disable-next-line testing-library/no-node-access
-//   expect(container.querySelector("h1").textContent).toBe("game1 Waiting Room");
-// });
+let mockgameStatus = "waiting"
 
 jest.mock("../fireBaseFunctions/dataFunctions", () => {
   return {
     listenForChanges: (collectionName, callback) => {
       if (collectionName == "games/undefined") {
         callback({
+          owner: "123",
           gameID: 1,
           name: "game1",
           players: 2,
-          status: "playing",
+          status: mockgameStatus,
           player_names: ["mark", "barry"],
         });
       } else if (collectionName == "games/undefined/players/undefined") {
@@ -77,7 +63,7 @@ jest.mock("../fireBaseFunctions/dataFunctions", () => {
   };
 });
 
-it("displays Game Menu correctly", () => {
+it("displays waiting room while status is in 'waiting'", () => {
 
   const user = { currentUser: "123" };
   // eslint-disable-next-line testing-library/no-unnecessary-act
@@ -85,7 +71,24 @@ it("displays Game Menu correctly", () => {
       mockContext(user, <Game />);
   });
 
-  expect(container.querySelector("button").textContent).toBe("Hold")
+  // eslint-disable-next-line testing-library/no-node-access
+  expect(screen.getByText("game1 Waiting Room")).toBeInTheDocument()
+  expect(screen.getByTestId("mark-waiting")).toBeInTheDocument()
+  expect(screen.getByTestId("barry-waiting")).toBeInTheDocument()
+  expect(screen.getByText("Begin Game")).toBeInTheDocument()
+  expect(screen.getByText("exit")).toBeInTheDocument()
+});
+
+
+it("displays Game while status is in 'playing'", () => {
+  mockgameStatus = "playing"
+  const user = { currentUser: "123" };
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  act(() => {
+      mockContext(user, <Game />);
+  });
+
+  expect(screen.getByText("Hold")).toBeInTheDocument()
   expect(container.querySelector("h1").textContent).toBe("Who's Turn");
   expect(container.querySelectorAll("h2")[0].textContent).toBe("mark");
   expect(container.querySelectorAll("h2")[1].textContent).toBe("barry");

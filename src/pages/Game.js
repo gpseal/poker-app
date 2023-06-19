@@ -55,21 +55,18 @@ const Game = () => {
     );
   }
 
-  // console.log(gameData?.current_players);
-
   return (
     <>
       {!gameData && <ScreenLoading />}
       <div className="Game-Back">
         {gameData?.status === "waiting" && (
-          <div data-testid="waitForGameToStart">
+          <div>
             <WaitForGameStart
               gameName={gameData?.name}
               owner={gameData?.owner}
               user={currentUser}
               players={gameData?.player_names}
               gameID={gameID}
-              key={gameID}
               userName={userData?.name}
             />
           </div>
