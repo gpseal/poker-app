@@ -34,14 +34,15 @@ jest.mock("../fireBaseFunctions/dataFunctions", () => {
       });
     },
     listenForCollectionChanges: (ref, callBack) => {
-            callBack([{
-              id: "Wendy",
-              data: {
-                name: "game1",
-                players: 1,
-                owner: "mark123"
-              }
-            }]);
+      callBack([{
+        id: "123456",
+        data: {
+          name: "game1",
+          players: 1,
+          owner: "mark123",
+          status: "waiting"
+        }
+      }]);
     }
   };
 });
@@ -60,8 +61,16 @@ it("renders with or without a name", () => {
     mockContext(user, <HomePage />);
   });
   
+
+  // const button = screen.getAllByTestId("123456-buttonTitle");
+
+  // eslint-disable-next-line testing-library/no-node-access
+  console.log(document.getElementById("123456-buttonTitle").innerHTML);
+  expect(screen.getByText("game1")).toBeInTheDocument();
   // eslint-disable-next-line testing-library/no-node-access
   expect(container.querySelector("h1").textContent).toBe("POKER 2000")
+
+  // expect(screen.getAllByRole("button")[2]).toContain("game1")
   // const button = screen.getByText("POKER 2000");
   // console.log(button)
   // eslint-disable-next-line no-restricted-globals
