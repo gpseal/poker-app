@@ -24,6 +24,8 @@ const JoinGame = (props) => {
     return unsub;
   }, []);
 
+  console.log(gameData)
+
   return (
     <>
       <div className="w-full sm:ml-1">
@@ -34,7 +36,7 @@ const JoinGame = (props) => {
           <InlineLoading />
         ) : (
           <div className="container m-auto gap-1 grid grid-cols-3 w-full max-h-full overflow-auto">
-            {gameData.map((game) => (
+            {gameData?.map((game) => (
               <div key={game.id}>
                 {game?.data.status === "waiting" && game?.data.players < 5 && (
                   <JoinGameButton

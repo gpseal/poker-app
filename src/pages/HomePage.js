@@ -15,9 +15,7 @@ const HomePage = () => {
   const docRef = doc(db, "users", currentUser);
 
   useEffect(() => {
-    getDocument(docRef).then((data) => {
-      setUserProfile(data);
-    });
+    getDocument(docRef, setUserProfile)
   }, []);
 
   return (
@@ -32,13 +30,13 @@ const HomePage = () => {
               <div className="sm:flex sm:flex-col sm:w-7/12 lg:w-full">
                 <div className="flex sm:flex-col sm:w-full lg:flex-row">
                   <div className="bg-black bg-opacity-70 w-full py-2 mr-1 my-auto backdrop-blur-md flex justify-center sm:mb-1 lg:mb-0">
-                    <h2>Hi {userProfile?.data().name}</h2>
+                    <h2>Hi {userProfile.name}</h2>
                   </div>
                   <LogOut />
                 </div>
-                <CreateGame userName={userProfile?.data().name} />
+                <CreateGame userName={userProfile.name} />
               </div>
-              <JoinGame userName={userProfile?.data().name} />
+              <JoinGame userName={userProfile.name} />
             </div>
           </div>
         </div>

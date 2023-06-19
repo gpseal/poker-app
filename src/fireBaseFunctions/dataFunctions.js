@@ -1,10 +1,11 @@
 import { collection, doc, getDoc, setDoc, addDoc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../components/Firestore";
 
-export const getDocument = async (docRef) => {
+export const getDocument = async (docRef, setData) => {
   try {
     const docSnap = await getDoc(docRef);
-    return docSnap;
+    setData(docSnap.data());
+    return ;
   } catch (error) {
     alert(error)
   }

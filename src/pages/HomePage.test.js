@@ -26,6 +26,26 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+jest.mock("../fireBaseFunctions/dataFunctions", () => {
+  return {
+    getDocument: (ref, callBack) => {
+      callBack({
+        name: "Wendy",
+      });
+    },
+    listenForCollectionChanges: (ref, callBack) => {
+            callBack([{
+              id: "Wendy",
+              data: {
+                name: "game1",
+                players: 1,
+                owner: "mark123"
+              }
+            }]);
+    }
+  };
+});
+
 const mockContext = (user, component) => {
   return render(
     <UserContext.Provider value={user}>{component}</UserContext.Provider>,
