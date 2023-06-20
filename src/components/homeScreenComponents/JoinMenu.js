@@ -1,15 +1,11 @@
-import { collection, doc, onSnapshot } from "firebase/firestore";
-import { db } from "./Firestore";
 import { useState, useEffect, useContext } from "react";
-import { InlineLoading } from "./misc/Loading";
-import { Link } from "react-router-dom";
+import { InlineLoading } from "../misc/Loading";
 import JoinGameButton from "./JoinGameButton";
-import { joinGame } from "../fireBaseFunctions/gameFunctions";
 import { useNavigate } from "react-router-dom";
-import UserContext from "./UserContext";
-import { listenForCollectionChanges } from "../fireBaseFunctions/dataFunctions";
+import UserContext from "../UserContext";
+import { listenForCollectionChanges } from "../../fireBaseFunctions/dataFunctions";
 
-const JoinGame = (props) => {
+const JoinGameMenu = (props) => {
   const navigate = useNavigate();
   const [gameData, setGameData] = useState();
   const [isLoading, setIsLoading] = useState();
@@ -55,4 +51,4 @@ const JoinGame = (props) => {
   );
 };
 
-export default JoinGame;
+export default JoinGameMenu;

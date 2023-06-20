@@ -2,7 +2,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import CreateGame from "./CreateGame";
-import UserContext from "./UserContext";
+import UserContext from "../UserContext";
 
 
 let container = null;

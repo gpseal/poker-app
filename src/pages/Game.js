@@ -1,14 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import UserContext from "../components/UserContext";
-import PlayerHand from "../components/PlayerHand";
-import GameMenu from "../components/GameMenu";
-import WaitForGameStart from "../components/WaitForGameStart";
+import PlayerHand from "../components/gameComponents/PlayerHand";
+import GameMenu from "../components/gameComponents/GameMenu";
+import WaitForGameStart from "../components/gameComponents/WaitForGameStart";
 import {
   checkWinner,
   sendWinningHand,
 } from "../fireBaseFunctions/gameFunctions";
-import GameResult from "../components/GameResult";
+import GameResult from "../components/gameComponents/GameResult";
 import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
 import { ScreenLoading } from "../components/misc/Loading";
 
@@ -54,6 +54,8 @@ const Game = () => {
       userData?.name
     );
   }
+
+  console.log(userData?.cards);
 
   return (
     <>

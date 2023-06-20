@@ -35,6 +35,7 @@ const Card = (props) => {
         <div className="">
           {!cardLoaded && <InlineLoading />}
           <img
+            data-testid={props.card.card + props.card.suit + "-card"}
             onClick={handleCardClick}
             onLoad={cardLoad}
             className={`z-20 ease-in-out duration-500 cursor-pointer mt-5 sm:mt-0 ${

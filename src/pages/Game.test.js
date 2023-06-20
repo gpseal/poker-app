@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import Game from "./Game";
 import UserContext from "../components/UserContext";
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import { listenForChanges } from "../fireBaseFunctions/dataFunctions";
 import { endTurn } from "../fireBaseFunctions/gameFunctions";
 
@@ -89,10 +89,9 @@ it("displays Game while status is in 'playing'", () => {
   });
 
   expect(screen.getByText("Hold")).toBeInTheDocument()
-  expect(container.querySelector("h1").textContent).toBe("Who's Turn");
-  expect(container.querySelectorAll("h2")[0].textContent).toBe("mark");
-  expect(container.querySelectorAll("h2")[1].textContent).toBe("barry");
-
+  expect(screen.getByText("Who's Turn")).toBeInTheDocument();
+  expect(screen.getByText("mark")).toBeInTheDocument();
+  expect(screen.getByText("barry")).toBeInTheDocument();
 });
 
 it("plays a hand", () => {
@@ -102,11 +101,8 @@ it("plays a hand", () => {
     mockContext(user, <Game />);
   });
 
-  const holdButton = document.querySelector("button");
+  const holdButton = screen.getByText("Hold");
 
-  act(() => {
-    holdButton.dispatchEvent(new MouseEvent("click", { bubbles: true }));
-  });
-
+  fireEvent.click(holdButton);
   expect(endTurn).toHaveBeenCalledTimes(1);
 });

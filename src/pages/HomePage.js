@@ -5,8 +5,8 @@ import { useState, useContext, useEffect } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../components/Firestore";
 import { getDocument } from "../fireBaseFunctions/dataFunctions";
-import CreateGame from "../components/CreateGame";
-import JoinGame from "../components/JoinMenu";
+import CreateGame from "../components/homeScreenComponents/CreateGame";
+import JoinGame from "../components/homeScreenComponents/JoinMenu";
 import { ScreenLoading } from "../components/misc/Loading";
 
 const HomePage = () => {
@@ -15,7 +15,7 @@ const HomePage = () => {
   const docRef = doc(db, "users", currentUser);
 
   useEffect(() => {
-    getDocument(docRef, setUserProfile)
+    getDocument(docRef, setUserProfile);
   }, []);
 
   return (

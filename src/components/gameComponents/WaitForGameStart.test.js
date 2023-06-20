@@ -3,8 +3,8 @@ import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { fireEvent, screen } from "@testing-library/react";
 import WaitForGameStart from "./WaitForGameStart";
-import { mockContext, mockRouter } from "./TestingFunctions";
-import { beginGame, leaveGame } from "../fireBaseFunctions/gameFunctions";
+import { mockContext, mockRouter } from "../TestingFunctions";
+import { beginGame, leaveGame } from "../../fireBaseFunctions/gameFunctions";
 
 let container = null;
 beforeEach(() => {
@@ -20,9 +20,9 @@ afterEach(() => {
   container = null;
 });
 
-jest.mock("../firebaseFunctions/gameFunctions", () => ({
+jest.mock("../../fireBaseFunctions/gameFunctions", () => ({
   beginGame: jest.fn(),
-  leaveGame: jest.fn()
+  leaveGame: jest.fn(),
 }));
 
 jest.mock("react-router-dom", () => ({

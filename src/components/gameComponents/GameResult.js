@@ -1,9 +1,9 @@
 import ResultHand from "./ResultHand";
-import { ButtonStandard } from "./buttons/buttons";
+import { ButtonStandard } from "../buttons/buttons";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import deck from "./cards/deck";
-import { dealAgain, leaveGame } from "../fireBaseFunctions/gameFunctions";
+import deck from "../cards/deck";
+import { dealAgain, leaveGame } from "../../fireBaseFunctions/gameFunctions";
 
 const GameResult = (props) => {
 

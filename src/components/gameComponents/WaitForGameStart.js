@@ -1,9 +1,8 @@
-import { ButtonStandard } from "./buttons/buttons"
-import { beginGame, leaveGame } from "../fireBaseFunctions/gameFunctions";
+import { ButtonStandard } from "../buttons/buttons";
+import { beginGame, leaveGame } from "../../fireBaseFunctions/gameFunctions";
 import { useNavigate } from "react-router-dom";
 
 const WaitForGameStart = (props) => {
-
   const navigate = useNavigate();
 
   return (
@@ -20,7 +19,11 @@ const WaitForGameStart = (props) => {
         </h2>
         <div className="flex [&>*:first-child]:ml-0 flex-wrap sm:flex-nowrap">
           {props.players?.map((name) => (
-            <h2 key={name} data-testid={`${name}-waiting`} className="py-4 mt-1 bg-black/70 w-full sm:ml-1 flex justify-center backdrop-blur-sm">
+            <h2
+              key={name}
+              data-testid={`${name}-waiting`}
+              className="py-4 mt-1 bg-black/70 w-full sm:ml-1 flex justify-center backdrop-blur-sm"
+            >
               {name}
             </h2>
           ))}
@@ -28,7 +31,14 @@ const WaitForGameStart = (props) => {
         <div className="w-full flex justify-center mt-5">
           <ButtonStandard
             text={"exit"}
-            onClick={async() => await leaveGame(props.user, props.userName, props.gameID, navigate)}
+            onClick={async () =>
+              await leaveGame(
+                props.user,
+                props.userName,
+                props.gameID,
+                navigate
+              )
+            }
           />
           {props.owner === props.user && props.players.length > 1 && (
             <ButtonStandard
@@ -40,6 +50,6 @@ const WaitForGameStart = (props) => {
       </div>
     </div>
   );
-}
+};
 
-export default WaitForGameStart
+export default WaitForGameStart;

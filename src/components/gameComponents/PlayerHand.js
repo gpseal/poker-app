@@ -1,11 +1,11 @@
 import { onSnapshot, collection, doc } from "firebase/firestore";
-import { db } from "./Firestore";
+import { db } from "../Firestore";
 import { useEffect, useState, useContext } from "react";
-import Card from "./cards/Card";
-import { ButtonStandard } from "./buttons/buttons";
-import { swapCards } from "./cards/cardFunctions";
-import { endTurn } from "../fireBaseFunctions/gameFunctions";
-import { CalculateScore } from "./Scoring";
+import Card from "../cards/Card";
+import { ButtonStandard } from "../buttons/buttons";
+import { swapCards } from "../cards/cardFunctions";
+import { endTurn } from "../../fireBaseFunctions/gameFunctions";
+import { CalculateScore } from "../Scoring";
 import HandOptions from "./HandOptions";
 
 const PlayerHand = (props) => {

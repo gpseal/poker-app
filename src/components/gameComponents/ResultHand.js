@@ -1,7 +1,7 @@
-import Card from "./cards/Card";
+import Card from "../cards/Card";
 import { useState, useEffect } from "react";
-import { InlineLoading } from "./misc/Loading";
-import ResultCard from "./cards/ResultCard";
+import { InlineLoading } from "../misc/Loading";
+import ResultCard from "../cards/ResultCard";
 
 const ResultHand = (props) => {
 
