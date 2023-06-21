@@ -11,8 +11,8 @@ const JoinGameButton = (props) => {
     navigate(`/game/${gameID}`);
   };
 
-  const handleDeleteGame = async (gameID, user) => {
-    await deleteGame(gameID, user);
+  const handleDeleteGame = async (gameID, user, currentPlayers) => {
+    await deleteGame(gameID, user, currentPlayers);
   };
 
   return (
@@ -41,7 +41,7 @@ const JoinGameButton = (props) => {
       )}
       {props.user === props.owner && (
         <button
-          onClick={() => handleDeleteGame(props.id, props.user)}
+          onClick={() => handleDeleteGame(props.id, props.user, props.currentPlayers)}
           className="text-white"
         >
           x

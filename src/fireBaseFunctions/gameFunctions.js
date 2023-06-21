@@ -166,9 +166,11 @@ export const sendWinningHand = async (gameID, cards, winningHand, name) => {
   }
 };
 
-export const deleteGame = async (gameID, user) => {
+export const deleteGame = async (gameID, user, currentPlayers) => {
   try {
-    await deleteDoc(doc(db, playerRef(gameID, user)));
+    if (currentPlayers.includes(user)) {
+      await deleteDoc(doc(db, playerRef(gameID, user)));
+    }
     await deleteDoc(doc(db, gameRef(gameID)));
     return;
   } catch (error) {

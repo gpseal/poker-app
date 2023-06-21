@@ -92,11 +92,12 @@ describe('Firestore security rules', () => {
   });
 
 
-  // it('user is able to setDoc', async () => {
-  //   const alice = testEnv
-  //         .authenticatedContext('alice').firestore()
-  //   await assertSucceeds(setDoc(doc(alice, "users/alice"), {name: "alice"}));
-  // })
+  it('user is able to setDoc', async () => {
+    const alice = testEnv
+          .authenticatedContext('alice').firestore()
+    console.log(alice)
+    await assertSucceeds(setDoc(doc(alice, "users/alice"), {name: "alice"}));
+  })
 
   it('User is able to get a document', async () => {
     const alice = testEnv
