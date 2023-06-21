@@ -39,9 +39,11 @@ const JoinGameButton = (props) => {
           <h3>{props.status}</h3>
         </div>
       )}
-      {props.user === props.owner && (
+      {props.user === props.owner && props.status === "complete" && (
         <button
-          onClick={() => handleDeleteGame(props.id, props.user, props.currentPlayers)}
+          onClick={() =>
+            handleDeleteGame(props.id, props.user, props.currentPlayers)
+          }
           className="text-white"
         >
           x

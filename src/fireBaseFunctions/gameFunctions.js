@@ -40,6 +40,18 @@ export const createGame = async (owner, deck, name, gameID) => {
   }
 };
 
+export const endGame = async (gameID) => {
+  try {
+    await updateDoc(doc(db, gameRef(gameID)), {
+      status: "complete",
+    });
+
+    return;
+  } catch (error) {
+    alert(error);
+  }
+};
+
 export const joinGame = async (user, userName, gameID) => {
   try {
     const deck = await getDeck(gameID);

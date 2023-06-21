@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import deck from "../cards/deck";
 import { dealAgain, leaveGame } from "../../fireBaseFunctions/gameFunctions";
+import { endGame } from "../../fireBaseFunctions/gameFunctions";
 
 const GameResult = (props) => {
 
@@ -11,7 +12,11 @@ const GameResult = (props) => {
 
   const [playAgainSetup, setPlayAgainSetup] = useState(false)
 
-    useEffect(() => {}, [props?.numOfPlayers]);
+    useEffect(() => {
+      if (props?.numOfPlayers === 1) {
+        endGame(props.gameID);
+      }
+    }, [props?.numOfPlayers, props.gameID]);
 
   return (
     <div

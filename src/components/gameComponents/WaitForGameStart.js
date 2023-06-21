@@ -29,7 +29,7 @@ const WaitForGameStart = (props) => {
           ))}
         </div>
         <div className="w-full flex justify-center mt-5">
-          <ButtonStandard
+          {props.owner !== props.user && <ButtonStandard
             text={"exit"}
             onClick={async () =>
               await leaveGame(
@@ -39,7 +39,7 @@ const WaitForGameStart = (props) => {
                 navigate
               )
             }
-          />
+          />}
           {props.owner === props.user && props.players.length > 1 && (
             <ButtonStandard
               text={"Begin Game"}
