@@ -16,3 +16,37 @@ export const mockRouter = () => {
       }))
     )
 }
+
+export const yourHand = [
+  {
+    card: "4",
+    image:
+      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/spades_4.svg",
+    suit: "spades",
+    value: 4,
+  },
+  {
+    card: "7",
+    image:
+      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/diamonds_7.svg",
+    suit: "diamonds",
+    value: 7,
+  },
+];
+
+export const winningHand = [
+  {
+    card: "9",
+    image:
+      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/spades_4.svg",
+    suit: "clubs",
+    value: 9,
+  },
+  {
+    card: "10",
+    image:
+      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/diamonds_7.svg",
+    suit: "diamonds",
+    value: 10,
+  },
+];

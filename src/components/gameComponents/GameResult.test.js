@@ -2,10 +2,9 @@ import React from "react";
 import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { fireEvent, screen } from "@testing-library/react";
-import { mockContext, mockRouter } from "../TestingFunctions";
+import { mockContext, winningHand, yourHand } from "../TestingFunctions";
 import GameResult from "./GameResult";
 import { leaveGame, dealAgain } from "../../fireBaseFunctions/gameFunctions";
-import { swapCards } from "../cards/cardFunctions";
 
 let container = null;
 beforeEach(() => {
@@ -34,40 +33,6 @@ jest.mock("../../fireBaseFunctions/gameFunctions", () => ({
 }));
 
 const user = { currentUser: "123" };
-const yourHand = [
-    {
-      card: "4",
-      image:
-        "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/spades_4.svg",
-      suit: "spades",
-      value: 4,
-    },
-    {
-      card: "7",
-      image:
-        "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/diamonds_7.svg",
-      suit: "diamonds",
-      value: 7,
-    },
-  ]
-
-const winningHand = [
-  {
-    card: "9",
-    image:
-      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/spades_4.svg",
-    suit: "clubs",
-    value: 9,
-  },
-  {
-    card: "10",
-    image:
-      "https://tekeye.uk/playing_cards/images/svg_playing_cards/fronts/diamonds_7.svg",
-    suit: "diamonds",
-    value: 10,
-  },
-];
-
 let mockWinner = true;
 
 it("displays results to looser with options to leave or deal again", () => {

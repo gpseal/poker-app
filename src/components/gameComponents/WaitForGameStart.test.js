@@ -34,7 +34,7 @@ jest.mock("react-router-dom", () => ({
 const user = { currentUser: "123" };
 let mockPlayers = ["greg", "mark"]
 
-it("displays waiting room and allows game to begin", () => {
+it("displays waiting room to owner and allows option to begin game", () => {
 
   act(() => {
     mockContext(user, <WaitForGameStart
@@ -48,17 +48,44 @@ it("displays waiting room and allows game to begin", () => {
   });
 
   const beginButton = screen.getByText("Begin Game");
-  const exitButton = screen.getByText("exit");
+  // const exitButton = screen.queryByText("exit");
 
   expect(screen.getByText("game1 Waiting Room")).toBeInTheDocument()
   expect(screen.getByTestId("mark-waiting")).toBeInTheDocument()
   expect(screen.getByTestId("greg-waiting")).toBeInTheDocument()
   expect(beginButton).toBeInTheDocument()
-  expect(exitButton).toBeInTheDocument()
+  expect(screen.queryByText("exit")).not.toBeInTheDocument()
   
   fireEvent.click(beginButton)
   expect(beginGame).toHaveBeenCalledTimes(1);
   
+  // fireEvent.click(exitButton)
+  // expect(leaveGame).toHaveBeenCalledTimes(1);
+});
+
+it("displays waiting room to non-owner and allows option to exit game", () => {
+  act(() => {
+    mockContext(
+      user,
+      <WaitForGameStart
+        gameName={"game1"}
+        owner={"456"}
+        user={user.currentUser}
+        players={mockPlayers}
+        gameID={"9876"}
+      />,
+      container
+    );
+  });
+
+  const exitButton = screen.queryByText("exit");
+
+  expect(screen.getByText("game1 Waiting Room")).toBeInTheDocument();
+  expect(screen.getByTestId("mark-waiting")).toBeInTheDocument();
+  expect(screen.getByTestId("greg-waiting")).toBeInTheDocument();
+  expect(exitButton).toBeInTheDocument();
+  expect(screen.queryByText("Begin Game")).not.toBeInTheDocument();
+
   fireEvent.click(exitButton)
   expect(leaveGame).toHaveBeenCalledTimes(1);
 });

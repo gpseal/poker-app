@@ -4,6 +4,8 @@ import { InlineLoading } from "../misc/Loading";
 const ResultCard = (props) => {
   const [isLoaded, setIsLoaded] = useState(false)
 
+  console.log(props.alt)
+
   return (
     <>
       {!isLoaded && <InlineLoading />}

@@ -76,7 +76,7 @@ it("displays waiting room while status is in 'waiting'", () => {
   expect(screen.getByTestId("mark-waiting")).toBeInTheDocument()
   expect(screen.getByTestId("barry-waiting")).toBeInTheDocument()
   expect(screen.getByText("Begin Game")).toBeInTheDocument()
-  expect(screen.getByText("exit")).toBeInTheDocument()
+  expect(screen.queryByText("exit")).not.toBeInTheDocument()
 });
 
 
