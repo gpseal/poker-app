@@ -1,7 +1,7 @@
 import { db } from "../Firestore";
 import { getDoc, doc, setDoc } from "firebase/firestore";
 import { endTurn } from "../../fireBaseFunctions/gameFunctions";
-import { CalculateScore } from "../Scoring";
+import { CalculateScore } from "../scoring/Scoring";
 
 export const shuffle = (deck) => {
   for (let i = deck.length - 1; i > 0; i--) {

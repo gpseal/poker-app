@@ -55,8 +55,6 @@ const Game = () => {
     );
   }
 
-  console.log(userData?.cards);
-
   return (
     <>
       {!gameData && <ScreenLoading />}

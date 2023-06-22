@@ -12,7 +12,7 @@ import {
 import { db } from "../components/Firestore";
 import { getDeck } from "../components/cards/cardFunctions";
 import { getDocument } from "./dataFunctions";
-import { CalculateScore } from "../components/Scoring";
+import { CalculateScore } from "../components/scoring/Scoring";
 import { shuffle } from "../components/cards/cardFunctions";
 import deck from "../components/cards/deck";
 
