@@ -10,17 +10,13 @@ export const CalculateScore = (cardHand) => {
   })
   
   // find if there are matching cards in the deck by comparing values
+  // I cannot find the reference for this reduce function (sorry), but I have used a tutorial to create this
   const findMatchingCards = sortedHand?.reduce((tally, card) => {
     tally[card.value] = (tally[card.value] || 0) + 1;
     return tally;
   }, {});
-  
-  // const getObjectKey = (obj, value) => {
-  //   return Object.keys(obj).find(key => obj[key] === value)
-  // }
 
-  // console.log(getObjectKey);
-
+  // run all functions on hand, return score if score exists
   for (let index = 0; index < functions.length; index++) {
     const f = functions[index];
     const score = f(sortedHand, findMatchingCards, /*getObjectKey*/)
@@ -112,11 +108,21 @@ const royalFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
 }
 
 const straightFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+  
+  let flushCheckHand = sortedHand?.map(c => c)
+
   try {
+    if (flushCheckHand[0]?.value === 14 && flushCheckHand[4]?.value === 2) {
+      flushCheckHand[0].value = 1
+    }
+    flushCheckHand = flushCheckHand?.sort((a, b) => {
+      return  b.value - a.value
+    })
+
     if (
-      (sortedHand.filter((card) => card.suit === sortedHand[0].suit)
+      (flushCheckHand.filter((card) => card.suit === flushCheckHand[0].suit)
       .length === 5) &&
-      (sortedHand[0]?.value - 4 === sortedHand[4]?.value) &&
+      (flushCheckHand[0]?.value - 4 === flushCheckHand[4]?.value) &&
       (Object?.values(findMatchingCards).length === 5)
       ) {
       const scorableHand = createScorableArray(findMatchingCards, 0, 4);
@@ -165,8 +171,19 @@ const flush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
 }
 
 const straight = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+
+  // to account for the appearance of an ace in a straight
+  let flushCheckHand = sortedHand?.map(c => c)
   try {
-    if ((sortedHand[0]?.value - 4) === (sortedHand[4]?.value) && Object?.values(findMatchingCards).length === 5){
+    // change ace to a 1 if there is potential for an ace low straight
+    if (flushCheckHand[0]?.value === 14 && flushCheckHand[4]?.value === 2) {
+      flushCheckHand[0].value = 1
+    }
+    flushCheckHand = flushCheckHand?.sort((a, b) => {
+      return  b.value - a.value
+    })
+    
+    if ((flushCheckHand[0]?.value - 4) === (flushCheckHand[4]?.value) && Object?.values(findMatchingCards).length === 5){
       const scorableHand = createScorableArray(findMatchingCards, 0, 4);
       return {score: (4 * scoreMultiplier) + addCardValues(scorableHand),
               handName: "Straight"}
