@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import CreateGame from "./CreateGame";
 import UserContext from "../UserContext";
+import { fireEvent, screen } from "@testing-library/react";
 
 
 let container = null;
@@ -58,6 +59,7 @@ it("displays create game options when 'Create a Game' button is clicked", () => 
       container.querySelector("[data-testid=CreateButton]").textContent
     ).toBe("Create");
 
-    expect(container.querySelector("input")).toBeInTheDocument();
+    expect(screen.getByTestId("CreateButton")).toBeInTheDocument()
+    expect(screen.getByPlaceholderText("Game Name")).toBeInTheDocument();
 
 });

@@ -34,7 +34,7 @@ const RegisterForm = (props) => {
   return (
     <>
       {show ? (
-        <div className="bg-back w-screen h-screen z-10 absolute left-0 top-0 flex-col flex items-center justify-center ">
+        <div data-testid="reg-modal" className="bg-back w-screen h-screen z-10 absolute left-0 top-0 flex-col flex items-center justify-center ">
           <div className="p-20 border shadow-lg bg-fore">
             <form
               className="flex items-center flex-col"
