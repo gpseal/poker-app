@@ -5,10 +5,14 @@ const JoinGameButton = (props) => {
   const navigate = useNavigate();
 
   const handleJoinGame = async (gameID) => {
-    if (!props.currentPlayers.includes(props.user)) {
-      await joinGame(props.user, props.userName, gameID);
+    try {
+      if (!props.currentPlayers.includes(props.user)) {
+        await joinGame(props.user, props.userName, gameID);
+      }
+      navigate(`/game/${gameID}`);
+    } catch (error) {
+      
     }
-    navigate(`/game/${gameID}`);
   };
 
   const handleDeleteGame = async (gameID, user, currentPlayers) => {

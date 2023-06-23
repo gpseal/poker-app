@@ -1,9 +1,10 @@
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import UserContext from "../components/UserContext";
 import HomePage from "./HomePage";
+import { joinGame } from "../fireBaseFunctions/gameFunctions";
 
 let container = null;
 beforeEach(() => {
@@ -26,6 +27,14 @@ jest.mock("react-router-dom", () => ({
   useNavigate: () => mockedNavigate,
 }));
 
+jest.mock("../components/cards/cardFunctions", () => ({
+  shuffle: jest.fn()
+}));
+
+jest.mock("../fireBaseFunctions/gameFunctions", () => ({
+  joinGame: jest.fn(),
+}));
+
 jest.mock("../fireBaseFunctions/dataFunctions", () => {
   return {
     getDocument: (ref, callBack) => {
@@ -40,7 +49,8 @@ jest.mock("../fireBaseFunctions/dataFunctions", () => {
           name: "game1",
           players: 1,
           owner: "mark123",
-          status: "waiting"
+          status: "waiting",
+          current_players: ["todd"]
         }
       }]);
     }
@@ -54,35 +64,32 @@ const mockContext = (user, component) => {
   );
 };
 
-it("renders with or without a name", () => {
+it("renders Home Page user details and game Details", () => {
   const user = { currentUser: "123" };
   // eslint-disable-next-line testing-library/no-unnecessary-act
   act(() => {
     mockContext(user, <HomePage />);
   });
   
+  const gameButton = screen.getByText("game1")
+  expect(gameButton).toBeInTheDocument()
+  expect(screen.getByText("Hi Wendy")).toBeInTheDocument()
+  expect(screen.getByText("POKER 2000")).toBeInTheDocument();
+  expect(screen.getByText("players: 1")).toBeInTheDocument();
 
-  // const button = screen.getAllByTestId("123456-buttonTitle");
+  fireEvent.click(gameButton)
+  expect(joinGame).toHaveBeenCalled();
+});
 
-  // eslint-disable-next-line testing-library/no-node-access
-  console.log(document.getElementById("123456-buttonTitle").innerHTML);
-  expect(screen.getByText("game1")).toBeInTheDocument();
-  // eslint-disable-next-line testing-library/no-node-access
-  expect(container.querySelector("h1").textContent).toBe("POKER 2000")
+it("Shows create a game modal", () => {
+  const user = { currentUser: "123" };
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  act(() => {
+    mockContext(user, <HomePage />);
+  });
 
-  // expect(screen.getAllByRole("button")[2]).toContain("game1")
-  // const button = screen.getByText("POKER 2000");
-  // console.log(button)
-  // eslint-disable-next-line no-restricted-globals
-  // expect(button).toHaveTextContent("POKER");
+  const createGameButton = screen.getByText("Create a Game");
 
-  // act(() => {
-  //   render(<Hello name="Jenny" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Jenny!");
-
-  // act(() => {
-  //   render(<Hello name="Margaret" />, container);
-  // });
-  // expect(container.textContent).toBe("Hello, Margaret!");
+  fireEvent.click(createGameButton);
+  expect(screen.getByPlaceholderText("Game Name")).toBeInTheDocument();
 });
