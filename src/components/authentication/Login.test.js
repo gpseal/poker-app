@@ -55,9 +55,6 @@ it("displays Login Screen and enables user to sign in", () => {
 
   fireEvent.click(submitButton);
   expect(loginUser).toHaveBeenCalledTimes(1);
-  
-  fireEvent.click(register);
-
 });
 
 it("displays Registration Modal when register is clicked", () => {

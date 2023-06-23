@@ -44,19 +44,39 @@ describe('Firestore security rules', () => {
     await testEnv.clearFirestore()
   });
 
-
-  it('user is able to setDoc', async () => {
+  it('Allows user to get/update their own user document', async () => {
     const alice = testEnv.authenticatedContext('alice').firestore()
-    console.log(alice)
     await assertSucceeds(setDoc(doc(alice, "users/alice"), {name: "alice"}));
+    await assertSucceeds(getDoc(doc(alice, "users/alice")));
+  })
+  
+  it('Does not allow user to get/update somebody elses user document', async () => {
+    const alice = testEnv.authenticatedContext('alice').firestore()
+    await assertFails(setDoc(doc(alice, "users/clark"), {name: "alice"}));
+    await assertFails(getDoc(doc(alice, "users/clark")));
   })
 
-  it('User is able to get a document', async () => {
+  it('Allows authenticated user to get/update game document', async () => {
     const alice = testEnv.authenticatedContext('alice').firestore()
-    await assertSucceeds(getDoc(doc(alice, "users/alice")));
-})
+    await assertSucceeds(setDoc(doc(alice, "games/gamedID1234"), {name: "alice"}));
+    await assertSucceeds(getDoc(doc(alice, "games/gamedID1234")));
+  })
+  
+  it('Does not allow unauthenticated user to get/update game document', async () => {
+    const alice = testEnv.unauthenticatedContext('alice').firestore()
+    await assertFails(setDoc(doc(alice, "games/gamedID1234"), {name: "alice"}));
+    await assertFails(getDoc(doc(alice, "games/gamedID1234")));
+  })
 
-afterAll(() => {
-  testEnv.cleanup()
-})
+  it('Allows only users registered with a game to get their game profile', async () => {
+    const alice = testEnv.authenticatedContext('alice').firestore()
+    const tina = testEnv.authenticatedContext('tina').firestore()
+    await assertSucceeds(setDoc(doc(alice, "games/gamedID1234"), {name: "alice", current_players: ['alice']}));
+    await assertSucceeds(getDoc(doc(alice, "games/gamedID1234/players/alice")));
+    await assertFails(getDoc(doc(tina, "games/gamedID1234/players/alice")));
+  })
+
+  afterAll(() => {
+    testEnv.cleanup()
+  })
 });

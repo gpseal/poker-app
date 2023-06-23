@@ -1,6 +1,5 @@
 import { signOut } from "firebase/auth";
 import { auth } from '../Firestore';
-import { ButtonStandard } from "../buttons/buttons";
 
 const LogOut = () => {
     return(<button className="w-full h-full bg-black/70 py-2 hover:bg-red-800/80

@@ -8,9 +8,6 @@ import { ScreenLoading } from "../misc/Loading";
 const Login = () => {
   const [showRegistration, setShowRegistration] = useState(false);
   const { currentUser, setCurrentUser, isLoading } = useContext(UserContext);
-  // const [isLoading, setIsLoading] = useState(false)
-
-  // console.log(isAuthenticated)
 
   const handleClick = () => {
     setShowRegistration(!showRegistration);

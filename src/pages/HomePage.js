@@ -18,8 +18,6 @@ const HomePage = () => {
     getDocument(docRef, setUserProfile);
   }, []);
 
-  console.log(currentUser)
-
   return (
     <>
       {!userProfile ? (

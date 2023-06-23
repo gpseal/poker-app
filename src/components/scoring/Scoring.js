@@ -87,7 +87,7 @@ const createScorableArray = (findMatchingCards, start, end) => {
 const functions = [];
 const scoreMultiplier = 10000000000
 
-const royalFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
+const royalFlush = (sortedHand, findMatchingCards) => {
   try {
     if (
       sortedHand?.filter((card) => card.suit === sortedHand[0].suit)
@@ -107,7 +107,7 @@ const royalFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const straightFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const straightFlush = (sortedHand, findMatchingCards) => { 
   
   let flushCheckHand = sortedHand?.map(c => c)
 
@@ -134,7 +134,7 @@ const straightFlush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const fourOfAKind = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
+const fourOfAKind = (sortedHand, findMatchingCards) => {
   try {
     if (Object?.values(findMatchingCards).includes(4)) {
       const scorableHand = createScorableArray(findMatchingCards, 1, 1);
@@ -146,7 +146,7 @@ const fourOfAKind = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const fullHouse = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const fullHouse = (sortedHand, findMatchingCards) => { 
   try {
     if ((Object?.values(findMatchingCards).includes(2)) && (Object?.values(findMatchingCards).includes(3))) {
       const scorableHand = createScorableArray(findMatchingCards, 1, 1);
@@ -158,7 +158,7 @@ const fullHouse = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const flush = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const flush = (sortedHand, findMatchingCards) => { 
   try {
     if (sortedHand.filter(card => card.suit === sortedHand[0].suit).length === 5) {
       const scorableHand = createScorableArray(findMatchingCards, 0, 4);
@@ -170,9 +170,9 @@ const flush = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const straight = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const straight = (sortedHand, findMatchingCards) => { 
 
-  // to account for the appearance of an ace in a straight
+  // to account for the appearance of an ace in a straight hand (can be low or high)
   let flushCheckHand = sortedHand?.map(c => c)
   try {
     // change ace to a 1 if there is potential for an ace low straight
@@ -193,7 +193,7 @@ const straight = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const threeOfKind = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const threeOfKind = (sortedHand, findMatchingCards) => { 
   try {
     if (Object?.values(findMatchingCards).includes(3)) {
   
@@ -206,7 +206,7 @@ const threeOfKind = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const twoPairs = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
+const twoPairs = (sortedHand, findMatchingCards) => {
   try {
     if (Object?.values(findMatchingCards).includes(2) && Object?.values(findMatchingCards).length === 3) {
       const scorableHand = createScorableArray(findMatchingCards, 2, 2)
@@ -218,7 +218,7 @@ const twoPairs = (sortedHand, findMatchingCards, /*getObjectKey*/) => {
   }
 }
 
-const pair = (sortedHand, findMatchingCards, /*getObjectKey*/) => { 
+const pair = (sortedHand, findMatchingCards) => { 
   try {
     if (Object?.values(findMatchingCards).includes(2)) {
 
