@@ -1,9 +1,17 @@
 # project-23s1-gpseal
 project-23s1-gpseal created by GitHub Classroom
 
-## Open App
+## Assignment Brief
+- Create a multi-player poker application employing react and firebase.
+- Include real player related updates across multiple devices time
+- Create extensive application testing using Jest
+
+## Deployed App Demo
 
 https://poker-fcbd4.web.app/
+
+- Application is multiplayer only so will require two registered users to demo.
+- Registration does not require real email addresses
 
 ## To Run Locally
 
